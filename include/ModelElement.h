@@ -38,6 +38,9 @@ public:
 public:
     virtual bool operator == (const MODEL_ELEMENT_TYPE& type);
 
+    virtual bool operator == (const ModelElement* element);
+    //virtual bool operator == (const ModelElement& element);
+    
     virtual ModelElement* operator [](const int&  index);
     virtual ModelElement* operator [](const char* name);
 
