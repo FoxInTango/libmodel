@@ -2,6 +2,18 @@
 #define _MODEL_ELEMENT_H_
 #include <libcpp/libcpp.h>
 
+/** ModelElement
+ *  native
+ *  {
+ *      value
+ *  }
+ *  array
+ *  {elementA,elementB,elementC}
+ *  map
+ *  {
+ *  "name":element
+ *  }
+ * */
 namespace foxintango {
 class ModelElementIMPL;
 class foxintangoAPI ModelElement {
@@ -12,6 +24,7 @@ typedef enum _MODEL_ELEMENT_TYPE
 {
     MET_NULL,    // nullptr
     MET_VOID,    // void
+    MET_ADDRESS, // 
     MET_BOOL,    // bool
     MET_CHAR,    // char
     MET_CHAR_U,  // unsigned char
@@ -26,8 +39,14 @@ typedef enum _MODEL_ELEMENT_TYPE
     MET_STRING,
     MET_MODEL
 } MODEL_ELEMENT_TYPE;
-public:
+typedef enum _MODEL_ELEMENT_STATUS
+{
+    MES_OK
+}MODEL_ELEMENT_STATUS;
+protected:
     ModelElement();
+public:
+    ModelElement(char* string);
     virtual ~ModelElement();
 public:
     virtual MODEL_ELEMENT_TYPE type();
@@ -35,16 +54,30 @@ public:
 public:
     virtual bool toBool();
     virtual char toChar();
+    virtual unsigned char toCharU();
+    virtual short toShort();
+    virtual unsigned short toShortU();
+    virtual int toInt();
+    virtual unsigned toIntU();
+    virtual long toLong();
+    virtual double toDouble();
+
+    virtual char* toString();
 public:
+    virtual ModelElement* subelementAt(const char* key);
+    virtual ModelElement* subelementAt(const unsigned int& index);
+public:
+    virtual void operator = (const char* content);
+    
     virtual bool operator == (const MODEL_ELEMENT_TYPE& type);
 
-    virtual bool operator == (const ModelElement* element);
-    //virtual bool operator == (const ModelElement& element);
+    virtual bool operator == (const ModelElement* e);
+    virtual bool operator == (const ModelElement& e);
+
+    virtual void operator << (const ModelElement& e);
     
     virtual ModelElement* operator [](const int&  index);
     virtual ModelElement* operator [](const char* name);
-
-    virtual void operator = (const char* content);
 };
 }
 #endif

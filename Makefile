@@ -41,7 +41,7 @@ TARGET_LIB_FLAG_STATIC =
 TARGET_LIB_PIC  = 
 TARGET_LIB_FLAG = 
 
-CFLAGS   = -Wall -fvisibility=hidden -I${TARGET_HEADERS_DIR} -I${THIRDS_HEADERS_DIR}
+CFLAGS   = -Wall -fvisibility=hidden -I${TARGET_HEADERS_DIR}
 CXXFLAGS = -std=c++11
 
 # 平台检测 -- DARWIN
