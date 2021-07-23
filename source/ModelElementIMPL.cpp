@@ -3,7 +3,7 @@ using namespace foxintango;
 
 #include <string>
 
-namespace {
+namespace foxintango {
 class ModelElementIMPL {
 public:
     ModelElement::MODEL_ELEMENT_TYPE type;
@@ -13,7 +13,7 @@ public:
 
     }
    
-   ~ModelElementIMPL(){
+   virtual ~ModelElementIMPL(){
 
    }
 public:
@@ -184,5 +184,13 @@ public:
 
    }
 };
+
+}
+
+ModelElement::ModelElement(const char* string) {
+
+}
+
+ModelElement::~ModelElement() {
 
 }
