@@ -15,7 +15,7 @@
  *      name:element
  *  }
  * */
-namespace foxintango {
+namespaceBegin(foxintango)
 
 class ModelElementIMPL;
 
@@ -83,5 +83,5 @@ public:
     virtual ModelElement* operator [](const int&  index);
     virtual ModelElement* operator [](const char* name);
 };
-}
+namespaceEnd
 #endif
