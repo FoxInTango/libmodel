@@ -55,13 +55,18 @@ protected:
     ModelElement();
     void setType(const MODEL_ELEMENT_TYPE& t);
 public:
-    ModelElement(const MODEL_ELEMENT_TYPE& t);
+    /** NOTE
+     * */
+    ModelElement(const MODEL_ELEMENT_TYPE& t); // 
+    ModelElement(const ModelElement& v);       // copy
+    ModelElement(const bool& v);
+    ModelElement(const char& v);
     virtual ~ModelElement();
 public:
     virtual MODEL_ELEMENT_TYPE type();
     virtual const char* typeString();
 public:
-    /**
+    /** conversion
      * t:target
      * */
     bool as(bool& t);
@@ -77,13 +82,30 @@ public:
     bool as(double& t);
     bool as(char* t);
     bool as(void* t);
+
+    /** conversion operator
+     * */
+    operator bool();
+    operator char();
+    operator unsigned char();
+    operator short();
+    operator unsigned short();
+    operator int();
+    operator unsigned int();
+    operator long();
+    operator unsigned long();
+    operator float();
+    operator double();
+    operator char*();
+    operator void*();
+    operator MODEL_ELEMENT_TYPE();
 public:
     virtual ModelElement* subelementAt(const char* key);
     virtual ModelElement* subelementAt(const unsigned int& index);
 public:
-    ModelElement& operator = (const bool& v);
-    ModelElement& operator = (const char& v);
-    ModelElement& operator = (const unsigned char& v);
+    virtual ModelElement& operator = (const bool& v);
+    virtual ModelElement& operator = (const char& v);
+    virtual ModelElement& operator = (const unsigned char& v);
     ModelElement& operator = (const short& v);
     ModelElement& operator = (const unsigned short& v);
     ModelElement& operator = (const int& v);
@@ -96,10 +118,10 @@ public:
     ModelElement& operator = (const void* v);
     ModelElement& operator = (const ModelElement& e);
 
-    bool operator == (const MODEL_ELEMENT_TYPE& type);
+    virtual bool operator == (const MODEL_ELEMENT_TYPE& type);
 
-    bool operator == (const ModelElement* e);
-    bool operator == (const ModelElement& e);
+    virtual bool operator == (const ModelElement* e);
+    virtual bool operator == (const ModelElement& e);
 
     bool operator == (const char& v);
     bool operator == (const unsigned char& v);
