@@ -34,16 +34,16 @@ typedef enum _MODEL_ELEMENT_TYPE
     MET_CHAR_U,  // unsigned char
     MET_SHORT,   // short
     MET_SHORT_U, // unsigned char
-    MET_INT,
-    MET_INT_U,
-    MET_LONG,
-    MET_LONG_U,
-    MET_FLOAT,
-    MET_DOUBLE,
-    MET_ARRAY,
-    MET_MAP,
-    MET_STRING,
-    MET_MODEL
+    MET_INT,     // int
+    MET_INT_U,   // unsigned int
+    MET_LONG,    // long
+    MET_LONG_U,  // unsigned long
+    MET_FLOAT,   // float
+    MET_DOUBLE,  // double
+    MET_ARRAY,   // array
+    MET_MAP,     // map
+    MET_STRING,  // string
+    MET_MODEL    // model
 }MODEL_ELEMENT_TYPE;
 
 typedef enum _MODEL_ELEMENT_STATUS
@@ -76,15 +76,12 @@ public:
     bool as(float& t);
     bool as(double& t);
     bool as(char* t);
-    /**
-     * t:target
-     * */
     bool as(void* t);
 public:
     virtual ModelElement* subelementAt(const char* key);
     virtual ModelElement* subelementAt(const unsigned int& index);
 public:
-    ModelElement& operator = (const char* v);
+    ModelElement& operator = (const bool& v);
     ModelElement& operator = (const char& v);
     ModelElement& operator = (const unsigned char& v);
     ModelElement& operator = (const short& v);
@@ -95,6 +92,8 @@ public:
     ModelElement& operator = (const unsigned long& v);
     ModelElement& operator = (const float& v);
     ModelElement& operator = (const double& v);
+    ModelElement& operator = (const char* v);
+    ModelElement& operator = (const void* v);
     ModelElement& operator = (const ModelElement& e);
 
     bool operator == (const MODEL_ELEMENT_TYPE& type);
@@ -102,7 +101,6 @@ public:
     bool operator == (const ModelElement* e);
     bool operator == (const ModelElement& e);
 
-    bool operator == (const char* content);
     bool operator == (const char& v);
     bool operator == (const unsigned char& v);
     bool operator == (const short& v);
@@ -111,10 +109,15 @@ public:
     bool operator == (const unsigned int& v);
     bool operator == (const float& v);
     bool operator == (const double& v);
+    bool operator == (const char* v);
+    bool operator == (const void* v);
 
     ModelElement* operator [](const int&  index);
     ModelElement* operator [](const char* name);
 };
+
+bool operator << (bool& v,ModelElement& e);
+bool operator >> (ModelElement& e,bool& v);
 
 bool operator << (char& v,ModelElement& e);
 bool operator >> (ModelElement& e,char& v);
@@ -145,5 +148,12 @@ bool operator >> (ModelElement& e,float& v);
 
 bool operator << (double& v,ModelElement& e);
 bool operator >> (ModelElement& e,double& v);
+
+bool operator << (char* v,ModelElement& e);
+bool operator >> (ModelElement& e,char* v);
+
+bool operator << (void* v,ModelElement& e);
+bool operator >> (ModelElement& e,void* v);
+
 namespaceEnd
 #endif

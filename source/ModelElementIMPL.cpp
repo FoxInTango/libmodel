@@ -43,6 +43,11 @@ inline bool is_number_string (const char* v) {
 /** MOVE TO libstring END   */
 
 namespace foxintango {
+/**
+ * NOTE:
+ * element TO char* 
+ * char*   TO element
+ * */
 class ModelElementIMPL {
 public:
     ModelElement::MODEL_ELEMENT_TYPE   type;
@@ -81,6 +86,20 @@ public:
     virtual bool accept(const double& t)        {return false;}
     virtual bool accept(const char* t)          {return false;}
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementUNKNOWN :public ModelElementIMPL {
@@ -119,6 +138,20 @@ public:
     virtual bool accept(const double& t)        {return false;}
     virtual bool accept(const char* t)          {return false;}
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementNULL :public ModelElementIMPL {
@@ -129,7 +162,6 @@ public:
     }
    
    ~ModelElementNULL() {
-
    }
 public:
     virtual bool as(bool& t)          {return false;}
@@ -159,6 +191,20 @@ public:
     virtual bool accept(const double& t)        {return false;}
     virtual bool accept(const char* t)          {return false;}
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return 0 == t ? true : false;}
 };
 
 class ModelElementVOID :public ModelElementIMPL {
@@ -199,7 +245,22 @@ public:
     virtual bool accept(const double& t)        {return false;}
     virtual bool accept(const char* t)          {return false;}
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
+
 ModelElementVOID MODEL_ELEMENT_VOID_INSTANCE_DEFAULT;
 
 class ModelElementADDRESS :public ModelElementIMPL {
@@ -240,8 +301,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
-    virtual bool accept(const void* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
+    virtual bool accept(const void* t)          {value = const_cast<void*>(t);return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return value == t ? true : false;}
 };
 
 class ModelElementBOOL :public ModelElementIMPL {
@@ -281,8 +356,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return value == t ? true : false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementCHAR :public ModelElementIMPL {
@@ -323,8 +412,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return value == t ? true : false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementCHAR_U :public ModelElementIMPL {
@@ -365,8 +468,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return value == t ? true : false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementSHORT :public ModelElementIMPL {
@@ -407,8 +524,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return value == t ? true : false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementSHORT_U :public ModelElementIMPL {
@@ -449,8 +580,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return value == t ? true : false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementINT :public ModelElementIMPL {
@@ -491,8 +636,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return value == t ? true : false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementINT_U :public ModelElementIMPL {
@@ -533,8 +692,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return value == t ? true : false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementLONG :public ModelElementIMPL {
@@ -575,8 +748,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return value == t ? true : false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementLONG_U :public ModelElementIMPL {
@@ -617,8 +804,22 @@ public:
     virtual bool accept(const unsigned long& t) {value = t;return true;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return value == t ? true : false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementFLOAT :public ModelElementIMPL {
@@ -659,8 +860,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {value = t;return true;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return value == t ? true : false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementDOUBLE :public ModelElementIMPL {
@@ -701,8 +916,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {value = t;return true;}
-    virtual bool accept(const char* t)          {return false;}
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return value == t ? true : false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementSTRING :public ModelElementIMPL {
@@ -742,8 +971,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}/** STRING:拷贝构造 NUMBER:转换构造*/
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return value == t ? true : false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementARRAY :public ModelElementIMPL {
@@ -781,8 +1024,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}/** 尝试解析:JSON XML YML...*/
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementMAP :public ModelElementIMPL {
@@ -820,8 +1077,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}/** 尝试解析:JSON XML YML...*/
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 
 class ModelElementMODEL :public ModelElementIMPL {
@@ -859,8 +1130,22 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}/** 尝试解析:JSON XML YML...*/
+    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
+public:
+    virtual bool equal(const bool& t)          {return false;}
+    virtual bool equal(const char& t)          {return false;}
+    virtual bool equal(const unsigned char& t) {return false;}
+    virtual bool equal(const short& t)         {return false;}
+    virtual bool equal(const unsigned short& t){return false;}
+    virtual bool equal(const int& t)           {return false;}
+    virtual bool equal(const unsigned int& t)  {return false;}
+    virtual bool equal(const long& t)          {return false;}
+    virtual bool equal(const unsigned long& t) {return false;}
+    virtual bool equal(const float& t)         {return false;}
+    virtual bool equal(const double& t)        {return false;}
+    virtual bool equal(const char* t)          {return false;}
+    virtual bool equal(const void* t)          {return false;}
 };
 }
 
@@ -1030,27 +1315,20 @@ ModelElement& ModelElement::operator = (const float& v)          { if(impl) impl
 ModelElement& ModelElement::operator = (const double& v)         { if(impl) impl->accept(v);return *this; }
 ModelElement& ModelElement::operator = (const ModelElement& e)   { /*if(impl) impl->accept(v);*/return *this; }
 
-bool ModelElement::operator == (const MODEL_ELEMENT_TYPE& type) {
-    return impl && impl->type == type ? true : false;
-}
-
+bool ModelElement::operator == (const MODEL_ELEMENT_TYPE& type)  { return impl && impl->type == type ? true : false;}
 bool ModelElement::operator == (const ModelElement* e) {return false;}
 bool ModelElement::operator == (const ModelElement& e) {return false;}
 
-bool ModelElement::operator == (const char* content) {return false;}
-bool ModelElement::operator == (const char& v) {return false;}
-bool ModelElement::operator == (const unsigned char& v) {return false;}
-bool ModelElement::operator == (const short& v) {return false;}
-bool ModelElement::operator == (const unsigned short& v) {return false;}
-bool ModelElement::operator == (const int& v) {return false;}
-bool ModelElement::operator == (const unsigned int& v) {return false;}
-bool ModelElement::operator == (const float& v) {return false;}
-bool ModelElement::operator == (const double& v) {return false;}
+bool ModelElement::operator == (const char& v)           { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const unsigned char& v)  { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const short& v)          { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const unsigned short& v) { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const int& v)            { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const unsigned int& v)   { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const float& v)          { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const double& v)         { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const char* v)           { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const void* v)           { if(impl) return impl->equal(v);return false; }
 
-ModelElement* ModelElement::operator [](const int&  index) {
-    return subelementAt(index);
-}
-
-ModelElement* ModelElement::operator [](const char* name) {
-    return subelementAt(name);
-}
+ModelElement* ModelElement::operator [](const int&  index) { return subelementAt(index); }
+ModelElement* ModelElement::operator [](const char* name)  { return subelementAt(name);  }

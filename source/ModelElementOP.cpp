@@ -49,3 +49,9 @@ bool operator >> (ModelElement& e,float& v) { return e.as(v); }
 bool operator << (double& v,ModelElement& e) { return e.as(v); }
 
 bool operator >> (ModelElement& e,double& v) { return e.as(v); }
+
+bool operator << (char* v,ModelElement& e){ return e.as(v); }
+bool operator >> (ModelElement& e,char* v){ return e.as(v); }
+
+bool operator << (void* v,ModelElement& e){ return e.as(v); }
+bool operator >> (ModelElement& e,void* v){ return e.as(v); }

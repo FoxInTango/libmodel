@@ -13,10 +13,11 @@ public:
     ModelArray();
     virtual ~ModelArray();
 public:
-    int appendSubelement(const ModelElement* e);
-    int insertSubelement(const ModelElement* e,const int& index);
-    int removeSubelement(const ModelElement* e);
-    int removeSubelement(const int& index);
+    unsigned int appendSubelement(const ModelElement* e);
+    unsigned int insertSubelement(const ModelElement* e,const int& index);
+    unsigned int removeSubelement(const ModelElement* e);
+    unsigned int removeSubelement(const int& index);
+    unsigned int subelementCount();
 public:
     virtual ModelElement* subelementAt(const unsigned int& index);
 };

@@ -13,7 +13,11 @@ public:
     ModelMap();
     virtual ~ModelMap();
 public:
-    virtual ModelElement* subelementAt(const char* key);
+    unsigned int insertSubelement(const ModelElement* e,const char* name);
+    unsigned int removeSubelement(const char* name);
+    unsigned int subelementCount();
+public:
+    virtual ModelElement* subelementAt(const char* name);
 };
 }
 #endif
