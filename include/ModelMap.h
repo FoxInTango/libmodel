@@ -5,7 +5,10 @@
 #include "libcpp/libcpp.h"
 
 namespace foxintango {
+class ModelMapIMPL;
 class foxintangoAPI ModelMap :public ModelElement {
+protected:
+    ModelMapIMPL* map;
 public:
     ModelMap();
     virtual ~ModelMap();

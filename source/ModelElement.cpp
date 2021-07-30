@@ -2,7 +2,5 @@
 using namespace foxintango;
 
 ModelElement::ModelElement() {
-
+    this->impl = 0;
 }
-
-
