@@ -1,13 +1,11 @@
 #ifndef _MODEL_H_
 #define _MODEL_H_
 
-#include "ModelMap.h"
-#include "ModelArray.h"
 #include "ModelElement.h"
 #include <libcpp/libcpp.h>
 
 namespace foxintango {
-class foxintangoAPI Model :public ModelMap {
+class foxintangoAPI Model :public ModelElement {
 public:
     typedef enum _MODEL_STATUS {
         MS_BAD_PATH,
