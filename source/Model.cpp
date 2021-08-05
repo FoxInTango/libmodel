@@ -23,13 +23,19 @@
  */
 #include "../include/Model.h"
 using namespace foxintango;
+#include "ModelToken.h"
+#include <iostream>
 
 Model::Model() {
-    setType(ModelElement::MET_MODEL);
+    ME::setType(ModelElement::MET_UNKNOWN);
+}
+
+Model::Model(const MODEL_ELEMENT_TYPE& t) {
+    if( t == ME::setType(t) ) std::cout << "Model set type OK." << std::endl;
 }
 
 Model::Model(const char* path) {
-    setType(ModelElement::MET_MODEL);
+    setType(ModelElement::MET_UNKNOWN);
 
     loadFile(path);
 }
@@ -38,8 +44,12 @@ Model::~Model() {
 
 }
 
+Model::MODEL_STATUS Model::setType(const ME::MODEL_ELEMENT_TYPE& t) {
+    return ME::MET_UNKNOWN == ME::type() && t == ME::setType(t) ? Model::MS_TYPE_SET_OK : Model::MS_TYPE_SET_FIXED;
+}
+
 Model::MODEL_STATUS Model::decode(char* buffer,const MODEL_FORMAT& format) {
-    if(!buffer) return MS_BAD_BUF; 
+    if(!buffer) return Model::MS_DECODE_BAD_BUF; 
     switch(format) {
         case MF_XML:{}break;
         case MF_YML:{}break;
@@ -66,6 +76,14 @@ Model::MODEL_STATUS Model::saveFile(const char* path) {
     return MS_NULL;
 }
 
+unsigned int Model::appendSubelement(const ModelElement* e)                  { return ME::MET_ARRAY == ME::type()                              ? ME::appendSubelement(e)      : 0; }
+unsigned int Model::insertSubelement(const ModelElement* e,const char* name) { return ME::MET_MAP   == ME::type()                              ? ME::insertSubelement(e,name) : 0; }
+unsigned int Model::removeSubelement(const ModelElement* e)                  { return ME::MET_ARRAY == ME::type() || ME::MET_MAP == ME::type() ? ME::removeSubelement(e)      : 0; }
+unsigned int Model::removeSubelement(const char* name)                       { return ME::MET_MAP   == ME::type()                              ? ME::removeSubelement(name)   : 0; }
+unsigned int Model::removeSubelement(const unsigned int& index)              { return ME::MET_ARRAY == ME::type()                              ? ME::removeSubelement(index)  : 0; }
+unsigned int Model::subelementCount()                                        { return ME::MET_ARRAY == ME::type() || ME::MET_MAP == ME::type() ? ME::subelementCount()        : 0; }
+ModelElement* Model::subelementAt(const char* key) const                     { return ME::MET_MAP   == ME::type() || ME::MET_MAP == ME::type() ? ME::subelementAt(key)        : 0; }
+ModelElement* Model::subelementAt(const unsigned int& index) const           { return ME::MET_ARRAY == ME::type()                              ? ME::subelementAt(index)      : 0; }
 /**
 void model_from_json(Model& m,json& j) {
     switch(j.type()) {

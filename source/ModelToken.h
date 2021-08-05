@@ -33,11 +33,11 @@ enum   ModelTokenJSON_t { MTJ_QUOT,MTJ_COMMA,MTJ_ARRAY_L,MTJ_ARRAY_R,MTJ_OBJECT_
 
 struct ModelTokenXML {
         char* token;
-        ModelTokenXML_t type;
+        ModelTokenXML_t type; /** <top id="something" name="yourname" ><sub id="" name=""/> </top>*/
 };
 struct ModelTokenJSON {
     char* token;
-    ModelTokenJSON_t type;
+    ModelTokenJSON_t type; /** {"object":{},"array":[],"string":"something","number":124,"bool":false } */
 };
 
 std::vector<ModelTokenJSON*>* loadJSONFile(const char* path);

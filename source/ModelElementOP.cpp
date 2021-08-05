@@ -80,6 +80,19 @@ bool operator << (double& v,        ModelElement& e){ return e.as(v); }
 bool operator << (char* v,          ModelElement& e){ return e.as(v); }
 bool operator << (void* v,          ModelElement& e){ return e.as(v); }
 
+bool operator == (const foxintango::ModelElement::MODEL_ELEMENT_TYPE& type,const foxintango::ModelElement& e) { return e == type; }
+
+bool operator == (const char& v,const foxintango::ModelElement& e)                  { return e == v;    }
+bool operator == (const unsigned char& v,const foxintango::ModelElement& e)         { return e == v;    }
+bool operator == (const short& v,const foxintango::ModelElement& e)                 { return e == v;    }
+bool operator == (const unsigned short& v,const foxintango::ModelElement& e)        { return e == v;    }
+bool operator == (const int& v,const foxintango::ModelElement& e)                   { return e == v;    }
+bool operator == (const unsigned int& v,const foxintango::ModelElement& e)          { return e == v;    }
+bool operator == (const float& v,const foxintango::ModelElement& e)                 { return e == v;    }
+bool operator == (const double& v,const foxintango::ModelElement& e)                { return e == v;    }
+bool operator == (const char* v,const foxintango::ModelElement& e)                  { return e == v;    }
+bool operator == (const void* v,const foxintango::ModelElement& e)                  { return e == v;    }
+
 /**
 bool operator << (ModelElement& e,bool& v)          { return e.accept(v); }
 bool operator >> (bool& v,ModelElement& e)          { return e.accept(v); }
@@ -128,7 +141,7 @@ EXTERN_C bool operator << (unsigned long& v,ModelElement& e) { return e.as(v); }
 EXTERN_C bool operator >> (ModelElement& e,unsigned long& v) { return e.as(v); }
 EXTERN_C bool operator << (float& v,ModelElement& e)         { return e.as(v); }
 EXTERN_C bool operator >> (ModelElement& e,float& v)         { return e.as(v); }
-EXTERN_C bool foxintangoAPI operator << (double& v,ModelElement& e)        { return e.as(v); }
+EXTERN_C bool operator << (double& v,ModelElement& e)        { return e.as(v); }
 EXTERN_C bool operator >> (ModelElement& e,double& v)        { return e.as(v); }
 EXTERN_C bool operator << (char* v,ModelElement& e)          { return e.as(v); }
 EXTERN_C bool operator >> (ModelElement& e,char* v)          { return e.as(v); }

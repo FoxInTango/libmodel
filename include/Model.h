@@ -31,9 +31,14 @@ namespace foxintango {
 class foxintangoAPI Model :public ModelElement {
 public:
     typedef enum _MODEL_STATUS {
-        MS_BAD_PATH,
-        MS_BAD_BUF,
-        MS_BAD_FORMAT,
+        MS_DECODE_BAD_PATH,
+        MS_DECODE_BAD_BUF,
+        MS_DECODE_BAD_FORMAT,
+        MS_ENCODE_BAD_PATH,
+        MS_ENCODE_BAD_BUF,
+        MS_ENCODE_BAD_FORMAT,
+        MS_TYPE_SET_OK,
+        MS_TYPE_SET_FIXED,
         MS_NULL,
         MS_OK
     }MODEL_STATUS;
@@ -44,15 +49,26 @@ public:
     }MODEL_FORMAT;
 public:
     Model();
+    Model(const MODEL_ELEMENT_TYPE& t);
     Model(const char* path);
    ~Model();
+public:
+   MODEL_STATUS setType(const MODEL_ELEMENT_TYPE& t);
 public:
    MODEL_STATUS decode(char* buffer,const MODEL_FORMAT& format);
    MODEL_STATUS encode(char* buffer,const MODEL_FORMAT& format);
    MODEL_STATUS loadFile(const char* path);
    MODEL_STATUS saveFile(const char* path);
 public:
-
+virtual unsigned int appendSubelement(const ModelElement* e);
+virtual unsigned int insertSubelement(const ModelElement* e,const char* name);
+virtual unsigned int removeSubelement(const ModelElement* e);
+virtual unsigned int removeSubelement(const char* name);
+virtual unsigned int removeSubelement(const unsigned int& index);
+virtual unsigned int subelementCount();
+virtual ModelElement* subelementAt(const char* key) const ;
+virtual ModelElement* subelementAt(const unsigned int& index) const ;
 };
+
 }
 #endif

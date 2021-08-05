@@ -65,9 +65,8 @@ typedef enum _MODEL_ELEMENT_TYPE
     MET_DOUBLE,  // double
     MET_STRING,  // string
     MET_ARRAY,   // array
-    MET_KV,   // KV Pair
-    MET_MAP,     // map
-    MET_MODEL    // model
+    MET_KV,      // KV Pair
+    MET_MAP      // map
 }MODEL_ELEMENT_TYPE;
 
 typedef enum _MODEL_ELEMENT_STATUS //类型转换状态
@@ -77,7 +76,7 @@ typedef enum _MODEL_ELEMENT_STATUS //类型转换状态
 
 protected:
     ModelElement();
-    void setType(const MODEL_ELEMENT_TYPE& t);
+    const MODEL_ELEMENT_TYPE setType(const MODEL_ELEMENT_TYPE& t);
 public:
     /** NOTE
      * */
@@ -158,7 +157,7 @@ public:
     ModelElement* prev();
     ModelElement* next();
 public:
-    virtual void echo();
+    virtual void echo(const unsigned int& offset);
 public:
     virtual unsigned int appendSubelement(const ModelElement* e);
     virtual unsigned int insertSubelement(const ModelElement* e,const char* name);
@@ -184,21 +183,21 @@ public:
     virtual ModelElement& operator = (const void* v);
     virtual ModelElement& operator = (const ModelElement& e);
 
-    virtual bool operator == (const MODEL_ELEMENT_TYPE& type);
+    virtual bool operator == (const MODEL_ELEMENT_TYPE& type) const;
 
-    virtual bool operator == (const ModelElement* e);
-    virtual bool operator == (const ModelElement& e);
+    virtual bool operator == (const ModelElement* e) const;
+    virtual bool operator == (const ModelElement& e) const;
 
-    virtual bool operator == (const char& v);
-    virtual bool operator == (const unsigned char& v);
-    virtual bool operator == (const short& v);
-    virtual bool operator == (const unsigned short& v);
-    virtual bool operator == (const int& v);
-    virtual bool operator == (const unsigned int& v);
-    virtual bool operator == (const float& v);
-    virtual bool operator == (const double& v);
-    virtual bool operator == (const char* v);
-    virtual bool operator == (const void* v);
+    virtual bool operator == (const char& v) const;
+    virtual bool operator == (const unsigned char& v) const;
+    virtual bool operator == (const short& v) const;
+    virtual bool operator == (const unsigned short& v) const;
+    virtual bool operator == (const int& v) const;
+    virtual bool operator == (const unsigned int& v) const;
+    virtual bool operator == (const float& v) const;
+    virtual bool operator == (const double& v) const;
+    virtual bool operator == (const char* v) const;
+    virtual bool operator == (const void* v) const;
 
     ModelElement* operator [](const int&  index);
     ModelElement* operator [](const char* name);
@@ -264,5 +263,17 @@ bool foxintangoAPI operator << (float& v,foxintango::ModelElement& e);
 bool foxintangoAPI operator << (double& v,foxintango::ModelElement& e);
 bool foxintangoAPI operator << (char* v,foxintango::ModelElement& e);
 bool foxintangoAPI operator << (void* v,foxintango::ModelElement& e);
+
+bool foxintangoAPI operator == (const foxintango::ModelElement::MODEL_ELEMENT_TYPE& type,const foxintango::ModelElement);
+bool foxintangoAPI operator == (const char& v,const foxintango::ModelElement);
+bool foxintangoAPI operator == (const unsigned char& v,const foxintango::ModelElement);
+bool foxintangoAPI operator == (const short& v,const foxintango::ModelElement);
+bool foxintangoAPI operator == (const unsigned short& v,const foxintango::ModelElement);
+bool foxintangoAPI operator == (const int& v,const foxintango::ModelElement);
+bool foxintangoAPI operator == (const unsigned int& v,const foxintango::ModelElement);
+bool foxintangoAPI operator == (const float& v,const foxintango::ModelElement);
+bool foxintangoAPI operator == (const double& v,const foxintango::ModelElement);
+bool foxintangoAPI operator == (const char* v,const foxintango::ModelElement);
+bool foxintangoAPI operator == (const void* v,const foxintango::ModelElement);
 
 #endif

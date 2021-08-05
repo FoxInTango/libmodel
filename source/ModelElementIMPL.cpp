@@ -68,8 +68,7 @@ static const char* MET_STRING_ARRAY[] =
     "MET_STRING",
     "MET_ARRAY",
     "MET_KV",
-    "MET_MAP",
-    "MET_MODEL"
+    "MET_MAP"
 }; 
 /** 数值型判断 需要进一步细化 
  * Ox000002
@@ -97,6 +96,14 @@ inline bool is_number_string (const char* v) {
 }
 /** MOVE TO libstring END   */
 
+inline const void echo_offset_string(const unsigned int& offset) {
+    std::string o;
+    for(unsigned int i = 0;i < offset;i ++) {
+        o += " ";
+    }
+
+    std::cout << o;
+}
 namespace foxintango {
 /**
  * NOTE:
@@ -171,6 +178,8 @@ public:
     virtual unsigned int  subelementCount()                                        { return 0; }
     virtual ModelElement* subelementAt(const char* key)           const            { return 0; }
     virtual ModelElement* subelementAt(const unsigned int& index) const            { return 0; }
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: MET_UNKNOWN.IMPL" << std::endl; }
 };
 
 class ModelElementUNKNOWN :public ModelElementIMPL {
@@ -223,6 +232,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: MET_UNKNOWN." << std::endl; }
 };
 
 class ModelElementNULL :public ModelElementIMPL {
@@ -276,6 +287,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return 0 == t ? true : false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: MET_NULL." << std::endl; }
 };
 
 class ModelElementVOID :public ModelElementIMPL {
@@ -330,6 +343,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: MET_VOID." << std::endl; }
 };
 
 ModelElementVOID MODEL_ELEMENT_VOID_INSTANCE_DEFAULT;
@@ -388,6 +403,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return value == t ? true : false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementBOOL :public ModelElementIMPL {
@@ -443,6 +460,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementCHAR :public ModelElementIMPL {
@@ -499,6 +518,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementCHAR_U :public ModelElementIMPL {
@@ -555,6 +576,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementSHORT :public ModelElementIMPL {
@@ -611,6 +634,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementSHORT_U :public ModelElementIMPL {
@@ -667,6 +692,8 @@ public:
     virtual bool equal(const double& t)         {return false;}
     virtual bool equal(const char* t)           {return false;}
     virtual bool equal(const void* t)           {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementINT :public ModelElementIMPL  {
@@ -723,6 +750,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementINT_U :public ModelElementIMPL {
@@ -779,6 +808,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementLONG :public ModelElementIMPL {
@@ -835,6 +866,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementLONG_U :public ModelElementIMPL {
@@ -891,6 +924,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementFLOAT :public ModelElementIMPL {
@@ -947,6 +982,11 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    /**
+     * 精度 及对齐
+     * */
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementDOUBLE :public ModelElementIMPL {
@@ -1003,6 +1043,8 @@ public:
     virtual bool equal(const double& t)        {return value == t ? true : false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementSTRING :public ModelElementIMPL {
@@ -1042,7 +1084,7 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
+    virtual bool accept(const char* t)          { value = t; return true; }/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
 public:
     virtual bool equal(const bool& t)          {return false;}
@@ -1058,6 +1100,8 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return value == t ? true : false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
 
 class ModelElementARRAY :public ModelElementIMPL {
@@ -1128,6 +1172,13 @@ public:                                                                         
     virtual unsigned int  subelementCount()                                        { return subelements.size(); }
     //virtual ModelElement* subelementAt(const char* key)           const            { return 0; }
     virtual ModelElement* subelementAt(const unsigned int& index) const            { return index < subelements.size() ? subelements.at(index) : 0; }
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl;
+                              for(unsigned int i = 0;i < subelements.size();i ++) {
+                                  echo_offset_string(offset + 4);std::cout<< "subelementAt: " << i << std::endl;
+                                  subelements[i]->echo(offset + 4);
+                              }
+                        }
 };
 
 class ModelElementKV : public ModelElementIMPL {
@@ -1184,6 +1235,11 @@ public:
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl;
+                                                    echo_offset_string(offset); std::cout << "    key:" << name << std::endl;
+                                                    echo_offset_string(offset); std::cout << "    "; if(element) element->echo(offset + 4);
+                                                  }
 };
 
 class ModelElementMAP :public ModelElementIMPL {
@@ -1241,7 +1297,8 @@ public:
     virtual bool equal(const void* t)          {return false;}
 public:                                                                            /**IMPL  **/
     virtual unsigned int  appendSubelement(const ModelElement* e)                  { return 0; }
-    virtual unsigned int  insertSubelement(const ModelElement* e,const char* name) { subelements.insert(std::pair<std::string,ModelElement*>(const_cast<char*>(name),const_cast<ModelElement*>(e))); return subelements.size(); }
+#define  MAP_ECHO std::cout<< "ModelElementMAP OP : insert , "<<subelements.size()<<std::endl;
+    virtual unsigned int  insertSubelement(const ModelElement* e,const char* name) { subelements.insert(std::pair<std::string,ModelElement*>(const_cast<char*>(name),const_cast<ModelElement*>(e)));/*MAP_ECHO*/;return subelements.size(); }
     virtual unsigned int  removeSubelement(const ModelElement* e)                  { std::map<std::string,ModelElement*>::iterator i = subelements.begin();
                                                                                      while(i != subelements.end()) {
                                                                                          if(i->second == e) subelements.erase(i);
@@ -1254,6 +1311,13 @@ public:                                                                         
     virtual unsigned int  subelementCount()                                        { return subelements.size(); }
     virtual ModelElement* subelementAt(const char* key)            const           { return subelements.count(key) ? subelements.at(key) : 0; }
     //virtual ModelElement* subelementAt(const unsigned int& index)  const           { std::map<std::string,ModelElement*>::iterator i = subelements.begin() + (int)index; return i->second; }
+public:
+    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl;
+                                                    std::map<std::string,ModelElement*>::iterator i = subelements.begin();
+                                                    while(i != subelements.end()) {
+                                                        if(i->second) i->second->echo(offset + 4);
+                                                           i ++;
+                                                    }}
 };
 
 class ModelElementMODEL :public ModelElementIMPL {
@@ -1330,7 +1394,7 @@ ModelElement::ModelElement(const MODEL_ELEMENT_TYPE& t) {
     case ModelElement::MET_ARRAY:  { this->impl = new ModelElementARRAY();   }break;
     case ModelElement::MET_MAP:    { this->impl = new ModelElementMAP();     }break;
     case ModelElement::MET_STRING: { this->impl = new ModelElementSTRING();  }break;
-    case ModelElement::MET_MODEL:  { this->impl = new ModelElementMODEL();   }break;
+    //case ModelElement::MET_MAP:    { this->impl = new ModelElementMAP();   }break;
     default:break;
     }
 }
@@ -1403,7 +1467,7 @@ ModelElement::ModelElement(const ModelElement& e) {
     case ModelElement::MET_ARRAY:  { this->impl = new ModelElementARRAY();   }break;//复制
     case ModelElement::MET_MAP:    { this->impl = new ModelElementMAP();     }break;//复制
     case ModelElement::MET_STRING: { this->impl = new ModelElementSTRING();  }break;//复制
-    case ModelElement::MET_MODEL:  { this->impl = new ModelElementMODEL();   }break;//复制
+    //case ModelElement::MET_MODEL:  { this->impl = new ModelElementMODEL();   }break;//复制
     default:break;
     }
 }
@@ -1479,7 +1543,7 @@ ModelElement::ModelElement(const ModelElement* p)
     case ModelElement::MET_ARRAY:  { this->impl = new ModelElementARRAY();   }break;//复制 类型转换
     case ModelElement::MET_MAP:    { this->impl = new ModelElementMAP();     }break;//复制
     case ModelElement::MET_STRING: { this->impl = new ModelElementSTRING();  }break;//复制
-    case ModelElement::MET_MODEL:  { this->impl = new ModelElementMODEL();   }break;//复制
+    //case ModelElement::MET_MODEL:  { this->impl = new ModelElementMODEL();   }break;//复制
     default:break;
     }
 }
@@ -1507,29 +1571,31 @@ ModelElement::ModelElement(const double& t)         { this->impl = new ModelElem
 ModelElement::ModelElement(const char* t)           { this->impl = new ModelElementSTRING;  if(this->impl) this->impl->accept(t); }
 ModelElement::ModelElement(const void* t)           { if(t) this->impl = new ModelElementADDRESS(); else this->impl = new ModelElementNULL(); if(this->impl) this->impl->accept(t); }
 
-void ModelElement::setType(const MODEL_ELEMENT_TYPE& t){
+// void ModelElement::setType(const MODEL_ELEMENT_TYPE& t)
+const ModelElement::MODEL_ELEMENT_TYPE ModelElement::setType(const ModelElement::MODEL_ELEMENT_TYPE& t) {
     switch(t) {
-    case ModelElement::MET_UNKNOWN:{ if(this->impl) delete this->impl;this->impl = new ModelElementUNKNOWN(); }break;
-    case ModelElement::MET_NULL:   { if(this->impl) delete this->impl;this->impl = new ModelElementNULL();    }break;
-    case ModelElement::MET_VOID:   { if(this->impl) delete this->impl;this->impl = new ModelElementVOID();    }break;
-    case ModelElement::MET_ADDRESS:{ if(this->impl) delete this->impl;this->impl = new ModelElementADDRESS(); }break;
-    case ModelElement::MET_BOOL:   { if(this->impl) delete this->impl;this->impl = new ModelElementBOOL();    }break;
-    case ModelElement::MET_CHAR:   { if(this->impl) delete this->impl;this->impl = new ModelElementCHAR();    }break;
-    case ModelElement::MET_CHAR_U: { if(this->impl) delete this->impl;this->impl = new ModelElementCHAR_U();  }break;
-    case ModelElement::MET_SHORT:  { if(this->impl) delete this->impl;this->impl = new ModelElementSHORT();   }break;
-    case ModelElement::MET_SHORT_U:{ if(this->impl) delete this->impl;this->impl = new ModelElementSHORT_U(); }break;
-    case ModelElement::MET_INT:    { if(this->impl) delete this->impl;this->impl = new ModelElementINT();     }break;
-    case ModelElement::MET_INT_U:  { if(this->impl) delete this->impl;this->impl = new ModelElementINT_U();   }break;
-    case ModelElement::MET_LONG:   { if(this->impl) delete this->impl;this->impl = new ModelElementLONG();    }break;
-    case ModelElement::MET_LONG_U: { if(this->impl) delete this->impl;this->impl = new ModelElementLONG_U();  }break;
-    case ModelElement::MET_FLOAT:  { if(this->impl) delete this->impl;this->impl = new ModelElementFLOAT();   }break;
-    case ModelElement::MET_DOUBLE: { if(this->impl) delete this->impl;this->impl = new ModelElementDOUBLE();  }break;
-    case ModelElement::MET_ARRAY:  { if(this->impl) delete this->impl;this->impl = new ModelElementARRAY();   }break;
-    case ModelElement::MET_MAP:    { if(this->impl) delete this->impl;this->impl = new ModelElementMAP();     }break;
-    case ModelElement::MET_STRING: { if(this->impl) delete this->impl;this->impl = new ModelElementSTRING();  }break;
-    case ModelElement::MET_MODEL:  { if(this->impl) delete this->impl;this->impl = new ModelElementMODEL();   }break;
+        case ModelElement::MET_UNKNOWN:{ if(this->impl) delete this->impl;this->impl = new ModelElementUNKNOWN(); return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_NULL:   { if(this->impl) delete this->impl;this->impl = new ModelElementNULL();    return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_VOID:   { if(this->impl) delete this->impl;this->impl = new ModelElementVOID();    return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_ADDRESS:{ if(this->impl) delete this->impl;this->impl = new ModelElementADDRESS(); return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_BOOL:   { if(this->impl) delete this->impl;this->impl = new ModelElementBOOL();    return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_CHAR:   { if(this->impl) delete this->impl;this->impl = new ModelElementCHAR();    return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_CHAR_U: { if(this->impl) delete this->impl;this->impl = new ModelElementCHAR_U();  return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_SHORT:  { if(this->impl) delete this->impl;this->impl = new ModelElementSHORT();   return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_SHORT_U:{ if(this->impl) delete this->impl;this->impl = new ModelElementSHORT_U(); return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_INT:    { if(this->impl) delete this->impl;this->impl = new ModelElementINT();     return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_INT_U:  { if(this->impl) delete this->impl;this->impl = new ModelElementINT_U();   return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_LONG:   { if(this->impl) delete this->impl;this->impl = new ModelElementLONG();    return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_LONG_U: { if(this->impl) delete this->impl;this->impl = new ModelElementLONG_U();  return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_FLOAT:  { if(this->impl) delete this->impl;this->impl = new ModelElementFLOAT();   return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_DOUBLE: { if(this->impl) delete this->impl;this->impl = new ModelElementDOUBLE();  return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_ARRAY:  { if(this->impl) delete this->impl;this->impl = new ModelElementARRAY();   return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_MAP:    { if(this->impl) delete this->impl;this->impl = new ModelElementMAP();     return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        case ModelElement::MET_STRING: { if(this->impl) delete this->impl;this->impl = new ModelElementSTRING();  return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
+        //case ModelElement::MET_MODEL:  { if(this->impl) delete this->impl;this->impl = new ModelElementMODEL();   return this->impl ? this->impl->type : ModelElement::MET_UNKNOWN; }break;
     default:break;
     }
+    return ModelElement::MET_UNKNOWN;
 }
 
 ModelElement::~ModelElement() {
@@ -1586,7 +1652,7 @@ ModelElement::operator char*()                 { char*          r = 0;     if(th
 ModelElement::operator void*()                 { void*          r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
 ModelElement::operator MODEL_ELEMENT_TYPE()    { if(this->impl) return this->impl->type; return ModelElement::MET_UNKNOWN;    }
 
-void ModelElement::echo() { this->impl ? std::cout << "ModelElement TYPE: " << typeString() << std::endl : std::cout << "ModelElement TYPE: MET_UNKNOWN." << std::endl; }
+void ModelElement::echo(const unsigned int& offset) { if(this->impl) this->impl->echo(offset);else  { echo_offset_string(offset);std::cout << "ModelElement TYPE: MET_UNKNOWN." << std::endl;} }
 
 
 unsigned int  ModelElement::appendSubelement(const ModelElement* e)                  { return this->impl ? this->impl->appendSubelement(e)      : 0; }
@@ -1613,17 +1679,17 @@ ModelElement& ModelElement::operator = (const double& v)         { if(impl) impl
 ModelElement& ModelElement::operator = (const void* v)           { if(impl) impl->accept(v);return *this; }
 ModelElement& ModelElement::operator = (const ModelElement& e)   { /*if(impl) impl->accept(v);*/return *this; }
 
-bool ModelElement::operator == (const MODEL_ELEMENT_TYPE& type)  { return impl && impl->type == type ? true : false; }
-bool ModelElement::operator == (const ModelElement* e)           { return false; }
-bool ModelElement::operator == (const ModelElement& e)           { return false; }
+bool ModelElement::operator == (const MODEL_ELEMENT_TYPE& type)   const { return impl && impl->type == type ? true : false; }
+bool ModelElement::operator == (const ModelElement* e)            const { return false; }
+bool ModelElement::operator == (const ModelElement& e)            const { return false; }
 
-bool ModelElement::operator == (const char& v)           { if(impl) return impl->equal(v);return false; }
-bool ModelElement::operator == (const unsigned char& v)  { if(impl) return impl->equal(v);return false; }
-bool ModelElement::operator == (const short& v)          { if(impl) return impl->equal(v);return false; }
-bool ModelElement::operator == (const unsigned short& v) { if(impl) return impl->equal(v);return false; }
-bool ModelElement::operator == (const int& v)            { if(impl) return impl->equal(v);return false; }
-bool ModelElement::operator == (const unsigned int& v)   { if(impl) return impl->equal(v);return false; }
-bool ModelElement::operator == (const float& v)          { if(impl) return impl->equal(v);return false; }
-bool ModelElement::operator == (const double& v)         { if(impl) return impl->equal(v);return false; }
-bool ModelElement::operator == (const char* v)           { if(impl) return impl->equal(v);return false; }
-bool ModelElement::operator == (const void* v)           { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const char& v)            const { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const unsigned char& v)   const { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const short& v)           const { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const unsigned short& v)  const { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const int& v)             const { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const unsigned int& v)    const { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const float& v)           const { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const double& v)          const { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const char* v)            const { if(impl) return impl->equal(v);return false; }
+bool ModelElement::operator == (const void* v)            const { if(impl) return impl->equal(v);return false; }
