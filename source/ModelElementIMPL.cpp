@@ -1070,7 +1070,7 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
+    virtual bool as(char* t)           const { t = const_cast<char*>(value.c_str()); return false;}
     virtual bool as(void* t)           const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
