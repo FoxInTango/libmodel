@@ -30,7 +30,7 @@ TARGET_SOURCES = $(wildcard ${TARGET_SOURCES_DIR}/*.cpp)
 TARGET_OBJECTS = $(patsubst %.cpp,${TARGET_OBJECTS_DIR}/%.o,$(notdir ${TARGET_SOURCES}))
 TARGET_HEADERS = $(wildcard $(TARGET_HEADERS_DIR)/*.h)
 
-TARGET_LIBS = -lstdc++
+TARGET_LIBS = -lstdc++ -lcpp
 # 链接标志
 TARGET_LIB_PIC_SHARED  = -fPIC
 TARGET_LIB_PIC_STATIC  = 

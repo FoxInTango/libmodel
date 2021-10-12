@@ -26,18 +26,26 @@ using namespace foxintango;
 #include "ModelToken.h"
 #include <iostream>
 
+/**
 Model::Model() {
     ME::setType(ModelElement::MET_UNKNOWN);
 }
+*/
 
 Model::Model(const MODEL_ELEMENT_TYPE& t) {
-    if( t == ME::setType(t) ) std::cout << "Model set type OK." << std::endl;
+    //if( t == ME::setType(t) ) std::cout << "Model set type OK." << std::endl;
+    ME::setType(t);
 }
 
 Model::Model(const char* path) {
-    setType(ModelElement::MET_UNKNOWN);
+    ME::setType(ModelElement::MET_UNKNOWN);
 
     loadFile(path);
+}
+Model::Model(const ModelElement& e) {
+    switch(e.type()) {
+    default:break;
+    }
 }
 
 Model::~Model() {

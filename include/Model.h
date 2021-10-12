@@ -48,9 +48,9 @@ public:
         MF_JSON
     }MODEL_FORMAT;
 public:
-    Model();
-    Model(const MODEL_ELEMENT_TYPE& t);
+    Model(const MODEL_ELEMENT_TYPE& t = MET_MAP);
     Model(const char* path);
+    Model(const ModelElement& e);
    ~Model();
 public:
    MODEL_STATUS setType(const MODEL_ELEMENT_TYPE& t);

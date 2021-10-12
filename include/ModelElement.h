@@ -117,8 +117,8 @@ public:
     bool as(unsigned long& t)  const;
     bool as(float& t)          const;
     bool as(double& t)         const;
-    bool as(char* t)           const;
-    bool as(void* t)           const;
+    bool as(char** t)          const;
+    bool as(void** t)          const;
 
     /** conversion
      * t:target
@@ -233,8 +233,8 @@ bool foxintangoAPI operator >> (foxintango::ModelElement& e,long& v);
 bool foxintangoAPI operator >> (foxintango::ModelElement& e,unsigned long& v);
 bool foxintangoAPI operator >> (foxintango::ModelElement& e,float& v);
 bool foxintangoAPI operator >> (foxintango::ModelElement& e,double& v);
-bool foxintangoAPI operator >> (foxintango::ModelElement& e,char* v);
-bool foxintangoAPI operator >> (foxintango::ModelElement& e,void* v);
+bool foxintangoAPI operator >> (foxintango::ModelElement& e,char** v);
+bool foxintangoAPI operator >> (foxintango::ModelElement& e,void** v);
 
 bool foxintangoAPI operator >> (bool& v,foxintango::ModelElement& e);
 bool foxintangoAPI operator >> (char& v,foxintango::ModelElement& e);
@@ -261,8 +261,8 @@ bool foxintangoAPI operator << (long& v,foxintango::ModelElement& e);
 bool foxintangoAPI operator << (unsigned long& v,foxintango::ModelElement& e);
 bool foxintangoAPI operator << (float& v,foxintango::ModelElement& e);
 bool foxintangoAPI operator << (double& v,foxintango::ModelElement& e);
-bool foxintangoAPI operator << (char* v,foxintango::ModelElement& e);
-bool foxintangoAPI operator << (void* v,foxintango::ModelElement& e);
+bool foxintangoAPI operator << (char** v,foxintango::ModelElement& e);
+bool foxintangoAPI operator << (void** v,foxintango::ModelElement& e);
 
 bool foxintangoAPI operator == (const foxintango::ModelElement::MODEL_ELEMENT_TYPE& type,const foxintango::ModelElement);
 bool foxintangoAPI operator == (const char& v,const foxintango::ModelElement);

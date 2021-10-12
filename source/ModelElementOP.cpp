@@ -49,8 +49,8 @@ bool operator >> (ModelElement& e,long& v)          { return e.as(v); }
 bool operator >> (ModelElement& e,unsigned long& v) { return e.as(v); }
 bool operator >> (ModelElement& e,float& v)         { return e.as(v); }
 bool operator >> (ModelElement& e,double& v)        { return e.as(v); }
-bool operator >> (ModelElement& e,char* v)          { return e.as(v); }
-bool operator >> (ModelElement& e,void* v)          { return e.as(v); }
+bool operator >> (ModelElement& e,char** v)         { return e.as(v); }
+bool operator >> (ModelElement& e,void** v)         { return e.as(v); }
 
 bool operator >> (bool& v,          ModelElement& e){ return e.accept(v); }
 bool operator >> (char& v,          ModelElement& e){ return e.accept(v); }
@@ -77,8 +77,8 @@ bool operator << (long& v,          ModelElement& e){ return e.as(v); }
 bool operator << (unsigned long& v, ModelElement& e){ return e.as(v); }
 bool operator << (float& v,         ModelElement& e){ return e.as(v); }
 bool operator << (double& v,        ModelElement& e){ return e.as(v); }
-bool operator << (char* v,          ModelElement& e){ return e.as(v); }
-bool operator << (void* v,          ModelElement& e){ return e.as(v); }
+bool operator << (char** v,         ModelElement& e){ return e.as(v); }
+bool operator << (void** v,         ModelElement& e){ return e.as(v); }
 
 bool operator == (const foxintango::ModelElement::MODEL_ELEMENT_TYPE& type,const foxintango::ModelElement& e) { return e == type; }
 

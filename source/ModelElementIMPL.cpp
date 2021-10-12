@@ -139,8 +139,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -167,8 +167,8 @@ public:
     virtual bool equal(const unsigned long& t) {return false;}
     virtual bool equal(const float& t)         {return false;}
     virtual bool equal(const double& t)        {return false;}
-    virtual bool equal(const char* t)          {return false;}
-    virtual bool equal(const void* t)          {return false;}
+    virtual bool equal(const char** t)         {return false;}
+    virtual bool equal(const void** t)         {return false;}
 public:
     virtual unsigned int  appendSubelement(const ModelElement* e)                  { return 0; }
     virtual unsigned int  insertSubelement(const ModelElement* e,const char* name) { return 0; }
@@ -202,8 +202,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -257,8 +257,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -313,8 +313,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -373,8 +373,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {t = value;return true;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const { *t = value;return true; }
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -388,7 +388,7 @@ public:
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
     virtual bool accept(const char* t)          {return false;}/** 尝试解析:NUMBER JSON XML YML...*/
-    virtual bool accept(const void* t)          {value = const_cast<void*>(t);return false;}
+    virtual bool accept(const void* t)          { value = const_cast<void*>(t);return true; }
 public:
     virtual bool equal(const bool& t)          {return false;}
     virtual bool equal(const char& t)          {return false;}
@@ -402,7 +402,7 @@ public:
     virtual bool equal(const float& t)         {return false;}
     virtual bool equal(const double& t)        {return false;}
     virtual bool equal(const char* t)          {return false;}
-    virtual bool equal(const void* t)          {return value == t ? true : false;}
+    virtual bool equal(const void* t)          { return value == t ? true : false; }
 public:
     virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
 };
@@ -430,8 +430,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {value = t;return true;}
     virtual bool accept(const char& t)          {return false;}
@@ -488,8 +488,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {value = t;return true;}
@@ -546,8 +546,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -604,8 +604,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -662,8 +662,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -720,8 +720,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -778,8 +778,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -836,8 +836,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -894,8 +894,8 @@ public:
     virtual bool as(unsigned long& t)  const {t = value;return true;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -952,8 +952,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {t = value;return true;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -1013,8 +1013,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {t = value;return true;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -1070,8 +1070,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const { t = const_cast<char*>(value.c_str()); return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const { *t = new char[value.length()];memset(*t,0,value.length());strcpy(*t,value.c_str());return true;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -1084,7 +1084,7 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          { value = t; return true; }/** 尝试解析:NUMBER JSON XML YML...*/
+    virtual bool accept(const char* t)          { value = t; std::cout << "ModelElementSTRING : " << value << std::endl; return true; }/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
 public:
     virtual bool equal(const bool& t)          {return false;}
@@ -1127,8 +1127,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -1205,8 +1205,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -1265,8 +1265,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -1341,8 +1341,8 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char* t)           const {return false;}
-    virtual bool as(void* t)           const {return false;}
+    virtual bool as(char** t)          const {return false;}
+    virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
     virtual bool accept(const char& t)          {return false;}
@@ -1406,7 +1406,7 @@ ModelElement::ModelElement(const ModelElement& e) {
     case ModelElement::MET_VOID:   { this->impl = new ModelElementVOID();    }break;
     case ModelElement::MET_ADDRESS:{ 
          ModelElementADDRESS* address = new ModelElementADDRESS(); 
-         e.as(address->value);
+         e.as(&address->value);
          this->impl = static_cast<ModelElementIMPL*>(address);
          }break;
     case ModelElement::MET_BOOL:   { 
@@ -1482,7 +1482,7 @@ ModelElement::ModelElement(const ModelElement* p)
     case ModelElement::MET_VOID:   { this->impl = new ModelElementVOID();    }break;
     case ModelElement::MET_ADDRESS:{ 
          ModelElementADDRESS* address = new ModelElementADDRESS(); 
-         e.as(address->value);
+         e.as(&address->value);
          this->impl = static_cast<ModelElementIMPL*>(address);
          }break;
     case ModelElement::MET_BOOL:   { 
@@ -1609,19 +1609,19 @@ ModelElement::MODEL_ELEMENT_TYPE ModelElement::type() const {
 
 const char* ModelElement::typeString() { return this->impl ? MET_STRING_ARRAY[this->impl->type] : MET_STRING_ARRAY[ModelElement::MET_UNKNOWN]; }
 
-bool ModelElement::as(bool& t) const           { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(char& t) const           { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(unsigned char& t) const  { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(short& t) const          { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(bool& t)           const { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(char& t)           const { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(unsigned char& t)  const { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(short& t)          const { return this->impl ? impl->as(t) : false; }
 bool ModelElement::as(unsigned short& t) const { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(int& t) const            { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(unsigned int& t) const   { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(long& t) const           { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(unsigned long& t) const  { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(float& t) const          { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(double& t) const         { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(char* t) const           { return this->impl ? impl->as(t) : false; }
-bool ModelElement::as(void* t) const           { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(int& t)            const { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(unsigned int& t)   const { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(long& t)           const { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(unsigned long& t)  const { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(float& t)          const { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(double& t)         const { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(char** t)          const { return this->impl ? impl->as(t) : false; }
+bool ModelElement::as(void** t)          const { return this->impl ? impl->as(t) : false; }
 
 bool ModelElement::accept(bool& v)             { return this->impl ? impl->accept(v) : false; }
 bool ModelElement::accept(char& v)             { return this->impl ? impl->accept(v) : false; }
@@ -1637,20 +1637,20 @@ bool ModelElement::accept(double& v)           { return this->impl ? impl->accep
 bool ModelElement::accept(char* v)             { return this->impl ? impl->accept(v) : false; }
 bool ModelElement::accept(void* v)             { return this->impl ? impl->accept(v) : false; }
 
-ModelElement::operator bool()                  { bool           r = false; if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator char()                  { char           r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator unsigned char()         { unsigned char  r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator short()                 { short          r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator unsigned short()        { unsigned short r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator int()                   { int            r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator unsigned int()          { unsigned int   r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator long()                  { long           r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator unsigned long()         { unsigned long  r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator float()                 { float          r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator double()                { double         r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator char*()                 { char*          r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator void*()                 { void*          r = 0;     if(this->impl) { this->impl->as(r);} return r;     }
-ModelElement::operator MODEL_ELEMENT_TYPE()    { if(this->impl) return this->impl->type; return ModelElement::MET_UNKNOWN;    }
+ModelElement::operator bool()                  { bool           r = false; if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator char()                  { char           r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator unsigned char()         { unsigned char  r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator short()                 { short          r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator unsigned short()        { unsigned short r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator int()                   { int            r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator unsigned int()          { unsigned int   r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator long()                  { long           r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator unsigned long()         { unsigned long  r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator float()                 { float          r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator double()                { double         r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator char*()                 { char*          r = 0;     if(this->impl) { this->impl->as(&r);} return r;     }
+ModelElement::operator void*()                 { void*          r = 0;     if(this->impl) { this->impl->as(&r);} return r;     }
+ModelElement::operator MODEL_ELEMENT_TYPE()    { if(this->impl) return this->impl->type; return ModelElement::MET_UNKNOWN;     }
 
 void ModelElement::echo(const unsigned int& offset) { if(this->impl) this->impl->echo(offset);else  { echo_offset_string(offset);std::cout << "ModelElement TYPE: MET_UNKNOWN." << std::endl;} }
 
