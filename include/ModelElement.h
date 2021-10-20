@@ -199,8 +199,8 @@ public:
     virtual bool operator == (const char* v) const;
     virtual bool operator == (const void* v) const;
 
-    ModelElement* operator [](const int&  index);
-    ModelElement* operator [](const char* name);
+    const ModelElement* operator [](const int&  index) const ;
+    const ModelElement* operator [](const char* name)  const ;
 };
 
 typedef ModelElement ME;
