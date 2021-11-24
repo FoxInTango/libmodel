@@ -1,36 +1,66 @@
-cc=clang
+CC=clang
+AS=llvm-as
+AR=llvm-ar
+LD=clang
+CP=llvm-objcopy
 
 PLATFORM_ARCH         = $(shell uname -s)
 PLATFORM_ARCH_LINUX   = Linux
 PLATFORM_ARCH_DARWIN  = Darwin
 PLATFORM_ARCH_FREEBSD = FreeBSD
 
+MK_FALSE = 0
+MK_TRUE  = 1
 # 输出类型配置
-TARGET_TYPE_BIN = BINARY
-TARGET_TYPE_LIB = STATIC
-TARGET_TYPE_DLL = SHARED
+TARGET_TYPE_BIN = $(MK_FALSE)
+TARGET_TYPE_LIB = $(MK_TRUE)
+TARGET_TYPE_DLL = $(MK_TRUE)
 
 # ** 项目配置区 **
+#
 #    输出文件名称
 TARGET_NAME     = libmodel
-#    输出文件类型
-TARGET_TYPE     = ${TARGET_TYPE_DLL}
 #    输出文件后缀 [自动判别]
-TARGET_NAME_EXT =
+TARGET_BIN_EXT = 
+TARGET_LIB_EXT_STATIC  =
+TARGET_LIB_EXT_DYNAMIC = 
 #    安装位置
-INSTALL_PATH    = /usr/local/libmodel
+INSTALL_PATH_PREFIX = /usr/local
 
-TARGET_OBJECTS_DIR := ./obj
-TARGET_HEADERS_DIR := ./include
-TARGET_SOURCES_DIR := ./source
-TARGET_BINARY_DIR  := ./bin
-TARGET_LIBRARY_DIR := ./lib
+TARGET_BIN_DIR := ./bin
+TARGET_LIB_DIR := ./lib
 
-TARGET_SOURCES = $(wildcard ${TARGET_SOURCES_DIR}/*.cpp)
-TARGET_OBJECTS = $(patsubst %.cpp,${TARGET_OBJECTS_DIR}/%.o,$(notdir ${TARGET_SOURCES}))
-TARGET_HEADERS = $(wildcard $(TARGET_HEADERS_DIR)/*.h)
+PROJECT_ROOT = .
+PROJECT_DIR_BESIDES  = \(
+PROJECT_DIR_BESIDES += -path ./.git
+PROJECT_DIR_BESIDES += -o -path ./obj
+PROJECT_DIR_BESIDES += -o -path ./bin
+PROJECT_DIR_BESIDES += -o -path ./lib
+PROJECT_DIR_BESIDES += -o -path ./.trash
+PROJECT_DIR_BESIDES += \)
+PROJECT_DIRS   = $(shell find $(PROJECT_ROOT) $(PROJECT_DIR_BESIDES) -prune -o -type d -print)
 
-TARGET_LIBS = -lstdc++ -lcpp
+TARGET_HEADERS = $(foreach dir,$(PROJECT_DIRS),$(wildcard $(dir)/*.h))
+
+TARGET_SOURCES_AS  += $(foreach dir,$(PROJECT_DIRS),$(wildcard $(dir)/*.s))
+TARGET_OBJECTS_AS  += $(patsubst %.s,%.o,$(TARGET_SOURCES_AS))
+TARGET_SOURCES_CC  += $(foreach dir,$(PROJECT_DIRS),$(wildcard $(dir)/*.c))
+TARGET_OBJECTS_CC  += $(patsubst %.c,%.o,$(TARGET_SOURCES_CC))                        # $(patsubst %.cpp,${TARGET_OBJECTS_DIR}/%.o,$(notdir ${TARGET_SOURCES}))
+TARGET_SOURCES_PP  += $(foreach dir,$(PROJECT_DIRS),$(wildcard $(dir)/*.cpp))
+TARGET_OBJECTS_PP  += $(patsubst %.cpp,%.o,$(TARGET_SOURCES_PP))
+
+TARGET_HEADER_DIRS += $(foreach dir,$(PROJECT_DIRS),-I$(dir))                         # $(wildcard $(TARGET_HEADERS_DIR)/*.h)
+
+# 链接库配置
+TARGET_LIB_INCLUDE =
+TARGET_LIB_BINARY  =
+TARGET_LD_FLAGS    =
+
+TARGET_LIB_INCLUDE =
+TARGET_LIB_BINARY  =
+TARGET_LD_FLAGS    =
+# 需要链接的库
+TARGET_LIBS = -lstdc++
 # 链接标志
 TARGET_LIB_PIC_SHARED  = -fPIC
 TARGET_LIB_PIC_STATIC  = 
@@ -41,97 +71,75 @@ TARGET_LIB_FLAG_STATIC =
 TARGET_LIB_PIC  = 
 TARGET_LIB_FLAG = 
 
-CFLAGS   = -Wall -fvisibility=hidden -I${TARGET_HEADERS_DIR}
-CXXFLAGS = -std=c++11
-
+ASFLAGS =
+CCFLAGS = -c -Wall -fvisibility=hidden  #-I${TARGET_HEADER_DIRS}
+PPFLAGS = -c -Wall -fvisibility=hidden -std=c++11
 # 平台检测 -- DARWIN
 ifeq (${PLATFORM_ARCH},${PLATFORM_ARCH_DARWIN})
-   ifeq (${TARGET_TYPE},${TARGET_TYPE_BIN})
-       TARGET_LIB_FLAG :=
-       TARGET_LIB_PIC  := ${TARGET_LIB_PIC_BINARY}
-       TARGET_LD_FLAGS += 
-       TARGET_NAME_EXT := 
-       TARGET_NAME     := ${TARGET_NAME}.${TARGET_NAME_EXT}
-   endif
-   ifeq (${TARGET_TYPE},${TARGET_TYPE_LIB})
-       TARGET_LIB_FLAG :=
-       TARGET_LIB_PIC  := ${TARGET_LIB_PIC_STATIC}
-       TARGET_LD_FLAGS += 
-       TARGET_NAME_EXT := a
-       TARGET_NAME     := ${TARGET_NAME}.${TARGET_NAME_EXT}
-   endif
-   ifeq (${TARGET_TYPE},${TARGET_TYPE_DLL})
-       TARGET_LIB_FLAG := ${TARGET_LIB_FLAG_SHARED}
-       TARGET_LIB_PIC  := ${TARGET_LIB_PIC_SHARED}
-       TARGET_LD_FLAGS += -dynamiclib
-       TARGET_NAME_EXT := dylib
-       TARGET_NAME     := ${TARGET_NAME}.${TARGET_NAME_EXT}
-   endif
+    TARGET_BIN_EXT         :=
+    TARGET_LIB_EXT_STATIC  := a
+    TARGET_LIB_EXT_DYNAMIC := so
 endif
 # 平台检测 -- LINUX
 ifeq (${PLATFORM_ARCH},${PLATFORM_ARCH_LINUX})
-   ifeq (${TARGET_TYPE},${TARGET_TYPE_BIN})
-       TARGET_LIB_FLAG :=
-       TARGET_LIB_PIC  := ${TARGET_LIB_PIC_BINARY}
-       TARGET_LD_FLAGS +=
-       TARGET_NAME_EXT :=
-       TARGET_NAME     := ${TARGET_NAME}.${TARGET_NAME_EXT}
-   endif
-   ifeq (${TARGET_TYPE},${TARGET_TYPE_LIB})
-       TARGET_LIB_FLAG :=
-       TARGET_LIB_PIC  := ${TARGET_LIB_PIC_STATIC}
-       TARGET_LD_FLAGS +=
-       TARGET_NAME_EXT := a
-       TARGET_NAME     := ${TARGET_NAME}.${TARGET_NAME_EXT}
-   endif
-   ifeq (${TARGET_TYPE},${TARGET_TYPE_DLL})
-       TARGET_LIB_FLAG := ${TARGET_LIB_FLAG_SHARED}
-       TARGET_LIB_PIC  := ${TARGET_LIB_PIC_SHARED}
-       TARGET_LD_FLAGS += 
-       TARGET_NAME_EXT := so
-       TARGET_NAME     := ${TARGET_NAME}.${TARGET_NAME_EXT}
-   endif
+    TARGET_BIN_EXT         :=
+    TARGET_LIB_EXT_STATIC  := a
+    TARGET_LIB_EXT_DYNAMIC := so
 endif
 
 # 平台检测 -- FreeBSD
 ifeq (${PLATFORM_ARCH},${PLATFORM_ARCH_FreeBSD})
-   ifeq (${TARGET_TYPE},${TARGET_TYPE_BIN})
-       TARGET_LIB_FLAG :=
-       TARGET_LIB_PIC  := ${TARGET_LIB_PIC_BINARY}
-       TARGET_LD_FLAGS +=
-       TARGET_NAME_EXT :=
-       TARGET_NAME     := ${TARGET_NAME}.${TARGET_NAME_EXT}
-   endif
-   ifeq (${TARGET_TYPE},${TARGET_TYPE_LIB})
-       TARGET_LIB_FLAG :=
-       TARGET_LIB_PIC  := ${TARGET_LIB_PIC_STATIC}
-       TARGET_LD_FLAGS +=
-       TARGET_NAME_EXT := a
-       TARGET_NAME     := ${TARGET_NAME}.${TARGET_NAME_EXT}
-   endif
-   ifeq (${TARGET_TYPE},${TARGET_TYPE_DLL})
-       TARGET_LIB_FLAG := ${TARGET_LIB_FLAG_SHARED}
-       TARGET_LIB_PIC  := ${TARGET_LIB_PIC_SHARED}
-       TARGET_LD_FLAGS += 
-       TARGET_NAME_EXT := so
-       TARGET_NAME     := ${TARGET_NAME}.${TARGET_NAME_EXT}
-   endif
+    TARGET_BIN_EXT         := 
+    TARGET_LIB_EXT_STATIC  := a
+    TARGET_LIB_EXT_DYNAMIC := so
 endif
 
-${TARGET_LIBRARY_DIR}/${TARGET_NAME} : $(TARGET_OBJECTS) $(THIRDS_OBJECTS)
-	cc ${TARGET_LD_FLAGS} ${TARGET_LIB_PIC} ${TARGET_LIB_FLAG} -o $@ $(TARGET_OBJECTS) ${TARGET_LIBS}
- 
-${TARGET_OBJECTS_DIR}/%.o : $(TARGET_SOURCES_DIR)/%.cpp
-	cc ${CFLAGS} ${CXXFLAGS} -c $< -o $@ ${TARGET_LIB_PIC}
+TARGETS = 
+
+ifeq ($(TARGET_TYPE_LIB),$(MK_TRUE))
+TARGETS += ${TARGET_LIB_DIR}/${TARGET_NAME}.${TARGET_LIB_EXT_STATIC}
+endif
+ifeq ($(TARGET_TYPE_DLL),$(MK_TRUE))
+TARGETS += ${TARGET_LIB_DIR}/${TARGET_NAME}.${TARGET_LIB_EXT_DYNAMIC}
+endif
+ifeq ($(TARGET_TYPE_BIN),$(MK_TRUE))
+TARGETS += ${TARGET_BIN_DIR}/${TARGET_NAME}.${TARGET_BIN_EXT}
+endif
+
+ALL : $(TARGETS)
+
+${TARGET_LIB_DIR}/${TARGET_NAME}.${TARGET_LIB_EXT_STATIC}:$(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
+	$(AR) ${TARGET_LD_FLAGS} ${TARGET_LIB_PIC} ${TARGET_LIB_FLAG} $(TARGET_LIB_PIC_STATIC) $(TARGET_LIB_FLAG_STATIC) -r $@ $^
+
+${TARGET_LIB_DIR}/${TARGET_NAME}.${TARGET_LIB_EXT_DYNAMIC}:$(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
+	$(CC) ${TARGET_LD_FLAGS} ${TARGET_LIB_PIC} ${TARGET_LIB_FLAG}  $(TARGET_LIB_PIC_SHARED) $(TARGET_LIB_FLAG_SHARED) $(TARGET_LIBS) -o $@ $^
+
+${TARGET_BIN_DIR}/${TARGET_NAME}.${TARGET_BIN_EXT}:$(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
+	$(CC) ${TARGET_LD_FLAGS} ${TARGET_LIB_PIC} ${TARGET_LIB_FLAG} -o $@ $^
+
+$(TARGET_OBJECTS_AS):%.o:%.s
+	$(AS) ${ASFLAGS} $< -o $@
+$(TARGET_OBJECTS_CC):%.o:%.c
+	$(CC) ${CCFLAGS} $(TARGET_LIB_PIC_SHARED) $< -o $@
+$(TARGET_OBJECTS_PP):%.o:%.cpp
+	$(CC) ${PPFLAGS} $(TARGET_LIB_PIC_SHARED) $< -o $@
 
 clean   :
-	rm ${TARGET_OBJECTS_DIR}/*.o
-	rm ${TARGET_LIBRARY_DIR}/*.${TARGET_NAME_EXT}
+	rm -f $(TARGET_OBJECTS_AS)
+	rm -f $(TARGET_OBJECTS_CC)
+	rm -f $(TARGET_OBJECTS_PP)
+	rm -f ${TARGET_LIB_DIR}/*
+	rm -f ${TARGET_BIN_DIR}/*
 install :
-	rm -rf /usr/local/include/libmodel
-	mkdir  /usr/local/include/libmodel
-	cp  -rf ./include/* /usr/local/include/libmodel
-	cp  -rf ./lib/${TARGET_NAME}  /usr/local/lib
+	rm -rf $(INSTALL_PATH_PREFIX)/include/$(TARGET_NAME)
+	rm -rf $(INSTALL_PATH_PREFIX)/lib/$(TARGET_NAME).*
+	mkdir  $(INSTALL_PATH_PREFIX)/include/$(TARGET_NAME)
+	cp     $(TARGET_HEADERS) $(INSTALL_PATH_PREFIX)/include/$(TARGET_NAME)
+	cp     $(TARGET_LIB_DIR)/$(TARGET_NAME).$(TARGET_LIB_EXT_STATIC) $(INSTALL_PATH_PREFIX)/lib/
+	cp     $(TARGET_LIB_DIR)/$(TARGET_NAME).$(TARGET_LIB_EXT_DYNAMIC) $(INSTALL_PATH_PREFIX)/lib/
+	cp     $(TARGET_BIN_DIR)/$(TARGET_NAME) $(INSTALL_PATH_PREFIX)/bin
+	$(shell ./pc.sh $(TARGET_NAME) 1.0.0 /usr/local)
 uninstall : 
-	rm -rf /usr/local/include/libmodel
-	rm -rf /usr/local/lib/${TARGET_NAME}
+	rm -rf $(INSTALL_PATH_PREFIX)/include/$(TARGET_NAME)
+	rm -rf $(INSTALL_PATH_PREFIX)/lib/$(TARGET_NAME).*
+	rm -rf $(INSTALL_PATH_PREFIX)/lib/pkgconfig/$(TARGET_NAME).pc
