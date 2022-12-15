@@ -72,8 +72,8 @@ TARGET_LIB_PIC  =
 TARGET_LIB_FLAG = 
 
 ASFLAGS =
-CCFLAGS = -c -Wall -fvisibility=hidden  #-I${TARGET_HEADER_DIRS}
-PPFLAGS = -c -Wall -fvisibility=hidden -std=c++11
+CCFLAGS = -c -Wall -fvisibility=hidden -std=c++11 -I${SUPER_INCLUDE_PATH}
+PPFLAGS = -c -Wall -fvisibility=hidden -std=c++11 -I${SUPER_INCLUDE_PATH}
 # 平台检测 -- DARWIN
 ifeq (${PLATFORM_ARCH},${PLATFORM_ARCH_DARWIN})
     TARGET_BIN_EXT         :=

@@ -21,7 +21,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-#include "../include/ModelElement.h"
+#include "ModelElement.h"
 using namespace foxintango;
 
 ModelElement::ModelElement()                                           { this->impl = 0;             }

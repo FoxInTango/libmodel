@@ -21,7 +21,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-#include "../include/Model.h"
+#include "Model.h"
 using namespace foxintango;
 #include "ModelToken.h"
 #include <iostream>
