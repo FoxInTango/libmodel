@@ -49,7 +49,10 @@ public:
     }MODEL_FORMAT;
 public:
     Model(const MODEL_ELEMENT_TYPE& t = MET_MAP);
-    Model(const char* path);
+    /**
+     * option: model file path or model content text. 
+     */
+    Model(const char* option);
     Model(const ModelElement& e);
    ~Model();
 public:

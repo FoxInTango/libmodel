@@ -24,7 +24,7 @@
 #include "Model.h"
 using namespace foxintango;
 #include "ModelToken.h"
-#include <iostream>
+#include <libast/libast.h>
 
 /**
 Model::Model() {
@@ -39,7 +39,9 @@ Model::Model(const MODEL_ELEMENT_TYPE& t) {
 
 Model::Model(const char* path) {
     ME::setType(ModelElement::MET_UNKNOWN);
-
+    /**
+     * ASTMatch
+     */
     loadFile(path);
 }
 Model::Model(const ModelElement& e) {
