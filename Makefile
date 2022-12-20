@@ -1,8 +1,7 @@
-CC=gcc
+CC=g++
 AS=as
 AR=ar
 LD=ld
-CP=llvm-objcopy
 
 PLATFORM_ARCH         = $(shell uname -s)
 PLATFORM_ARCH_LINUX   = Linux
@@ -51,29 +50,17 @@ TARGET_OBJECTS_PP  += $(patsubst %.cpp,%.o,$(TARGET_SOURCES_PP))
 
 TARGET_HEADER_DIRS += $(foreach dir,$(PROJECT_DIRS),-I$(dir))                         # $(wildcard $(TARGET_HEADERS_DIR)/*.h)
 
-# 链接库配置
-TARGET_LIB_INCLUDE =
-TARGET_LIB_BINARY  =
-TARGET_LD_FLAGS    =
-
-TARGET_LIB_INCLUDE =
-TARGET_LIB_BINARY  =
-TARGET_LD_FLAGS    =
 # 需要链接的库
 TARGET_LIBS = -lstdc++
-# 链接标志
-TARGET_LIB_PIC_SHARED  = -fPIC
-TARGET_LIB_PIC_STATIC  = 
-TARGET_LIB_PIC_BINARY  = -fPIE
-TARGET_LIB_FLAG_SHARED = -shared
-TARGET_LIB_FLAG_STATIC =
-# 自动判别
-TARGET_LIB_PIC  = 
-TARGET_LIB_FLAG = 
 
 ASFLAGS =
-CCFLAGS = -c -Wall -fvisibility=hidden -std=c++11 -I${SUPER_INCLUDE_PATH}
-PPFLAGS = -c -Wall -fvisibility=hidden -std=c++11 -I${SUPER_INCLUDE_PATH}
+CCFLAGS = -c -fPIC -Wall -fvisibility=hidden -std=c++11
+PPFLAGS = -c -fPIC -Wall -fvisibility=hidden -std=c++11
+
+ifdef SUPER_INCLUDE_PATH
+    CCFLAGS += -I${SUPER_INCLUDE_PATH}
+	PPFLAGS += -I${SUPER_INCLUDE_PATH}
+endif
 # 平台检测 -- DARWIN
 ifeq (${PLATFORM_ARCH},${PLATFORM_ARCH_DARWIN})
     TARGET_BIN_EXT         :=
@@ -109,20 +96,17 @@ endif
 ALL : $(TARGETS)
 
 ${TARGET_LIB_DIR}/${TARGET_NAME}.${TARGET_LIB_EXT_STATIC}:$(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
-	$(AR) ${TARGET_LD_FLAGS} ${TARGET_LIB_PIC} ${TARGET_LIB_FLAG} $(TARGET_LIB_PIC_STATIC) $(TARGET_LIB_FLAG_STATIC) -r $@ $^
+	$(AR) -crvs $@ $^
 
 ${TARGET_LIB_DIR}/${TARGET_NAME}.${TARGET_LIB_EXT_DYNAMIC}:$(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
-	$(CC) ${TARGET_LD_FLAGS} ${TARGET_LIB_PIC} ${TARGET_LIB_FLAG}  $(TARGET_LIB_PIC_SHARED) $(TARGET_LIB_FLAG_SHARED) $(TARGET_LIBS) -o $@ $^
-
-${TARGET_BIN_DIR}/${TARGET_NAME}.${TARGET_BIN_EXT}:$(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
-	$(CC) ${TARGET_LD_FLAGS} ${TARGET_LIB_PIC} ${TARGET_LIB_FLAG} -o $@ $^
+	$(CC) -fPIC -shared $(TARGET_LIBS) -o $@ $^
 
 $(TARGET_OBJECTS_AS):%.o:%.s
 	$(AS) ${ASFLAGS} $< -o $@
 $(TARGET_OBJECTS_CC):%.o:%.c
-	$(CC) ${CCFLAGS} $(TARGET_LIB_PIC_SHARED) $< -o $@
+	$(CC) ${CCFLAGS} $< -o $@
 $(TARGET_OBJECTS_PP):%.o:%.cpp
-	$(CC) ${PPFLAGS} $(TARGET_LIB_PIC_SHARED) $< -o $@
+	$(CC) ${PPFLAGS} $< -o $@
 
 clean   :
 	rm -f $(TARGET_OBJECTS_AS)
@@ -137,7 +121,6 @@ install :
 	cp     $(TARGET_HEADERS) $(INSTALL_PATH_PREFIX)/include/$(TARGET_NAME)
 	cp     $(TARGET_LIB_DIR)/$(TARGET_NAME).$(TARGET_LIB_EXT_STATIC) $(INSTALL_PATH_PREFIX)/lib/
 	cp     $(TARGET_LIB_DIR)/$(TARGET_NAME).$(TARGET_LIB_EXT_DYNAMIC) $(INSTALL_PATH_PREFIX)/lib/
-	$(shell ./pc.sh $(TARGET_NAME) 1.0.0 /usr/local)
 uninstall : 
 	rm -rf $(INSTALL_PATH_PREFIX)/include/$(TARGET_NAME)
 	rm -rf $(INSTALL_PATH_PREFIX)/lib/$(TARGET_NAME).*
