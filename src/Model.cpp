@@ -44,8 +44,15 @@ Model::Model(const char* path) {
      */
     loadFile(path);
 }
+
 Model::Model(const ModelElement& e) {
     switch(e.type()) {
+    default:break;
+    }
+}
+
+Model::Model(const ModelElement* e) {
+    switch (e->type()) {
     default:break;
     }
 }

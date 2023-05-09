@@ -53,7 +53,14 @@ public:
      * option: model file path or model content text. 
      */
     Model(const char* option);
+    /**
+     * 复制模型元素，复制完成参数元素与本模型无关 
+     */
     Model(const ModelElement& e);
+    /**
+     * 引用参数元素，参数元素与本模型关联
+     */
+    Model(const ModelElement* e);
    ~Model();
 public:
    MODEL_STATUS setType(const MODEL_ELEMENT_TYPE& t);

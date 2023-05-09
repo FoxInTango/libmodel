@@ -113,19 +113,26 @@ namespace foxintango {
 class ModelElementIMPL {
 public:
     unsigned int  index;
-    ModelElement* super;
+    //ModelElement* super;
+    std::vector<ModelElement*> supers;
 public:
     ModelElement::MODEL_ELEMENT_TYPE   type;
     ModelElement::MODEL_ELEMENT_STATUS status;
 public:
     ModelElementIMPL(){
-        super  = 0;
+        //super  = 0;
         index  = 0;
         type   = ModelElement::MET_UNKNOWN;
         status = ModelElement::MES_OK;
     }
    
     virtual ~ModelElementIMPL(){
+        /** TODO 
+         *  1,容器类模型元素析构过程中，检查子元素引用数，如无其他引用，销毁该元素
+         *  2,本元素析构时，调用引用者子元素析构事件处理函数
+         *  附：添加子元素事件处理成员函数
+         *      添加元素克隆函数
+         */
     }
 public:
     virtual bool as(bool& t)           const {return false;}
