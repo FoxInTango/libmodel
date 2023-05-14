@@ -43,6 +43,8 @@ public:
         MS_OK
     }MODEL_STATUS;
     typedef enum _MODEL_FORMAT {
+        MF_RAW,
+        MF_ES,
         MF_XML,
         MF_YML,
         MF_JSON
