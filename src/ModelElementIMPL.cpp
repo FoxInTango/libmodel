@@ -23,9 +23,10 @@
  */
 #include "ModelElement.h"
 #include <libecho/libecho.h>
+#include <libstring/libstring.h>
 #include <libcpp/libcpp.h>
 using namespace foxintango;
-
+#include <cstring>
 /*
 #include <stdio.h>
 #include <iostream>
@@ -80,9 +81,9 @@ static const char* MET_STRING_ARRAY[] =
  *
  * */
 inline bool is_number_string (const char* v) {
-    size_t l = strlen(v);
+    Size l = String(v).length();
 
-    for(size_t i = 0;i < l;i ++) {
+    for(Size i = 0;i < l;i ++) {
         if(v[i] != c0 && 
            v[i] != c1 && 
            v[i] != c2 && 
@@ -101,12 +102,6 @@ inline bool is_number_string (const char* v) {
 /** MOVE TO libstring END   */
 
 inline const void echo_offset_string(const unsigned int& offset) {
-    std::string o;
-    for(unsigned int i = 0;i < offset;i ++) {
-        o += " ";
-    }
-
-    std::cout << o;
 }
 namespace foxintango {
 /**
@@ -187,10 +182,10 @@ public:
     virtual unsigned int  removeSubelement(const char* name)                       { return 0; }
     virtual unsigned int  removeSubelement(const unsigned int& index)              { return 0; }
     virtual unsigned int  subelementCount()                                        { return 0; }
-    virtual ModelElement* subelementAt(const char* key)           const            { return 0; }
-    virtual ModelElement* subelementAt(const unsigned int& index) const            { return 0; }
+    virtual ModelElement* subelementAt(const char* key)                            { return 0; }
+    virtual ModelElement* subelementAt(const unsigned int& index)                  { return 0; }
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: MET_UNKNOWN.IMPL" << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementUNKNOWN :public ModelElementIMPL {
@@ -244,7 +239,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: MET_UNKNOWN." << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementNULL :public ModelElementIMPL {
@@ -299,7 +294,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return 0 == t ? true : false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: MET_NULL." << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementVOID :public ModelElementIMPL {
@@ -355,7 +350,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: MET_VOID." << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 ModelElementVOID MODEL_ELEMENT_VOID_INSTANCE_DEFAULT;
@@ -415,7 +410,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          { return value == t ? true : false; }
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementBOOL :public ModelElementIMPL {
@@ -472,7 +467,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementCHAR :public ModelElementIMPL {
@@ -530,7 +525,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementCHAR_U :public ModelElementIMPL {
@@ -588,7 +583,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementSHORT :public ModelElementIMPL {
@@ -646,7 +641,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementSHORT_U :public ModelElementIMPL {
@@ -704,7 +699,7 @@ public:
     virtual bool equal(const char* t)           {return false;}
     virtual bool equal(const void* t)           {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementINT :public ModelElementIMPL  {
@@ -762,7 +757,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementINT_U :public ModelElementIMPL {
@@ -820,7 +815,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementLONG :public ModelElementIMPL {
@@ -878,7 +873,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementLONG_U :public ModelElementIMPL {
@@ -936,7 +931,7 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementFLOAT :public ModelElementIMPL {
@@ -997,7 +992,7 @@ public:
     /**
      * 精度 及对齐
      * */
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementDOUBLE :public ModelElementIMPL {
@@ -1055,12 +1050,12 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementSTRING :public ModelElementIMPL {
 public:
-    std::string value;
+    String value;
 public:
     ModelElementSTRING() {
         type   = ModelElement::MET_STRING;
@@ -1081,7 +1076,7 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char** t)          const { *t = new char[value.length()];memset(*t,0,value.length());strcpy(*t,value.c_str());return true;}
+    virtual bool as(char** t)          const { *t = new char[value.length()];memset(*t,0,value.length());strcpy(*t,value.byte());return true;}
     virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
@@ -1095,7 +1090,7 @@ public:
     virtual bool accept(const unsigned long& t) {return false;}
     virtual bool accept(const float& t)         {return false;}
     virtual bool accept(const double& t)        {return false;}
-    virtual bool accept(const char* t)          { value = t; std::cout << "ModelElementSTRING : " << value << std::endl; return true; }/** 尝试解析:NUMBER JSON XML YML...*/
+    virtual bool accept(const char* t)          { value = t;  }/** 尝试解析:NUMBER JSON XML YML...*/
     virtual bool accept(const void* t)          {return false;}
 public:
     virtual bool equal(const bool& t)          {return false;}
@@ -1112,7 +1107,7 @@ public:
     virtual bool equal(const char* t)          {return value == t ? true : false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl << "    value:" << value << std::endl; }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementARRAY :public ModelElementIMPL {
@@ -1169,32 +1164,27 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:                                                                            /**IMPL  **/
-    virtual unsigned int  appendSubelement(const ModelElement* e)                  { subelements.push_back(const_cast<ModelElement*>(e)); return subelements.size(); }
+    virtual unsigned int  appendSubelement(const ModelElement* e)                  { subelements.append(const_cast<ModelElement*>(e)); return subelements.size(); }
     //virtual unsigned int  insertSubelement(const ModelElement* e,const char* name) { return 0; }
-    virtual unsigned int  removeSubelement(const ModelElement* e)                  { Array<ModelElement*>::iterator i = subelements.begin();
+    virtual unsigned int  removeSubelement(const ModelElement* e)                  { Array<ModelElement*>::Iterator i = subelements.begin();
                                                                                      while(i != subelements.end()) {
-                                                                                         if(*i == e) subelements.erase(i);
+                                                                                         if(*i == e) subelements.remove(i);
                                                                                          i ++;
                                                                                      }
                                                                                      return subelements.size(); 
                                                                                    }
     //virtual unsigned int  removeSubelement(const char* name)                       { return 0; }
-    virtual unsigned int  removeSubelement(const int& index)                       { subelements.erase(subelements.begin() + index); return subelements.size(); }
+    virtual unsigned int  removeSubelement(const int& index)                       { subelements.remove(subelements.begin() + index); return subelements.size(); }
     virtual unsigned int  subelementCount()                                        { return subelements.size(); }
     //virtual ModelElement* subelementAt(const char* key)           const            { return 0; }
-    virtual ModelElement* subelementAt(const unsigned int& index) const            { return index < subelements.size() ? subelements.at(index) : 0; }
+    virtual ModelElement* subelementAt(const unsigned int& index)            { return index < subelements.size() ? subelements.at(index) : 0; }
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl;
-                              for(unsigned int i = 0;i < subelements.size();i ++) {
-                                  echo_offset_string(offset + 4);std::cout<< "subelementAt: " << i << std::endl;
-                                  subelements[i]->echo(offset + 4);
-                              }
-                        }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementKV : public ModelElementIMPL {
 public:
-    std::string  name;
+    String  name;
     ModelElement* element;
 public:
     ModelElementKV(){
@@ -1247,15 +1237,12 @@ public:
     virtual bool equal(const char* t)          {return false;}
     virtual bool equal(const void* t)          {return false;}
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl;
-                                                    echo_offset_string(offset); std::cout << "    key:" << name << std::endl;
-                                                    echo_offset_string(offset); std::cout << "    "; if(element) element->echo(offset + 4);
-                                                  }
+    virtual void echo(const unsigned int& offset) { }
 };
 
 class ModelElementMAP :public ModelElementIMPL {
 public:
-    std::map<std::string,ModelElement*> subelements;
+    Map<String,ModelElement*> subelements;
 public:
     ModelElementMAP() {
         type   = ModelElement::MET_MAP;
@@ -1308,27 +1295,21 @@ public:
     virtual bool equal(const void* t)          {return false;}
 public:                                                                            /**IMPL  **/
     virtual unsigned int  appendSubelement(const ModelElement* e)                  { return 0; }
-#define  MAP_ECHO std::cout<< "ModelElementMAP OP : insert , "<<subelements.size()<<std::endl;
-    virtual unsigned int  insertSubelement(const ModelElement* e,const char* name) { subelements.insert(std::pair<std::string,ModelElement*>(const_cast<char*>(name),const_cast<ModelElement*>(e)));/*MAP_ECHO*/;return subelements.size(); }
-    virtual unsigned int  removeSubelement(const ModelElement* e)                  { std::map<std::string,ModelElement*>::iterator i = subelements.begin();
+    virtual unsigned int  insertSubelement(const ModelElement* e,const char* name) { subelements.insert(name,const_cast<ModelElement*>(e));/*MAP_ECHO*/;return subelements.size(); }
+    virtual unsigned int  removeSubelement(const ModelElement* e)                  { Map<String,ModelElement*>::Iterator i = subelements.begin();
                                                                                      while(i != subelements.end()) {
-                                                                                         if(i->second == e) subelements.erase(i);
-                                                                                         i ++;
+                                                                                         if(i.value == e) subelements.remove(i);
+                                                                                         else i ++;
                                                                                          }
-                                                                                         return subelements.size();
-                                                                                         }
-    virtual unsigned int  removeSubelement(const char* name)                       { std::map<std::string,ModelElement*>::iterator i = subelements.find(name);      subelements.erase(i); return subelements.size(); }
-    //virtual unsigned int  removeSubelement(const unsigned int& index)              { std::map<std::string,ModelElement*>::iterator i = subelements.begin() + index; subelements.erase(i); return subelements.size(); }
-    virtual unsigned int  subelementCount()                                        { return subelements.size(); }
-    virtual ModelElement* subelementAt(const char* key)            const           { return subelements.count(key) ? subelements.at(key) : 0; }
-    //virtual ModelElement* subelementAt(const unsigned int& index)  const           { std::map<std::string,ModelElement*>::iterator i = subelements.begin() + (int)index; return i->second; }
+                                                                                     return subelements.size();
+                                                                                    }
+    virtual unsigned int  removeSubelement(const char* name)                        { Map<String, ModelElement*>::Iterator iter = subelements.iteratorAt(name); subelements.remove(iter); return subelements.size(); }
+    //virtual unsigned int  removeSubelement(const unsigned int& index)              { }
+    virtual unsigned int  subelementCount()                                         { return subelements.size(); }
+    virtual ModelElement* subelementAt(const char* key)                             { return subelements.count(key) ? subelements.at(key) : 0; }
+    //virtual ModelElement* subelementAt(const unsigned int& index)  const           { }
 public:
-    virtual void echo(const unsigned int& offset) { echo_offset_string(offset); std::cout << "ModelElement TYPE: ." << MET_STRING_ARRAY[type] << "." << std::endl;
-                                                    std::map<std::string,ModelElement*>::iterator i = subelements.begin();
-                                                    while(i != subelements.end()) {
-                                                        if(i->second) i->second->echo(offset + 4);
-                                                           i ++;
-                                                    }}
+    virtual void echo(const unsigned int& offset) {}
 };
 
 class ModelElementMODEL :public ModelElementIMPL {
@@ -1663,7 +1644,7 @@ ModelElement::operator char*()                 { char*          r = 0;     if(th
 ModelElement::operator void*()                 { void*          r = 0;     if(this->impl) { this->impl->as(&r);} return r;     }
 ModelElement::operator MODEL_ELEMENT_TYPE()    { if(this->impl) return this->impl->type; return ModelElement::MET_UNKNOWN;     }
 
-void ModelElement::echo(const unsigned int& offset) { if(this->impl) this->impl->echo(offset);else  { echo_offset_string(offset);std::cout << "ModelElement TYPE: MET_UNKNOWN." << std::endl;} }
+void ModelElement::echo(const unsigned int& offset) { if(this->impl) this->impl->echo(offset);else  {}}
 
 
 unsigned int  ModelElement::appendSubelement(const ModelElement* e)                  { return this->impl ? this->impl->appendSubelement(e)      : 0; }
@@ -1672,8 +1653,8 @@ unsigned int  ModelElement::removeSubelement(const ModelElement* e)             
 unsigned int  ModelElement::removeSubelement(const char* name)                       { return this->impl ? this->impl->removeSubelement(name)   : 0; }
 unsigned int  ModelElement::removeSubelement(const unsigned int& index)              { return this->impl ? this->impl->removeSubelement(index)  : 0; }
 unsigned int  ModelElement::subelementCount()                                        { return this->impl ? this->impl->subelementCount()        : 0; }
-ModelElement* ModelElement::subelementAt(const char* key)           const            { return this->impl ? this->impl->subelementAt(key)        : 0; }
-ModelElement* ModelElement::subelementAt(const unsigned int& index) const            { return this->impl ? this->impl->subelementAt(index)      : 0; }
+ModelElement* ModelElement::subelementAt(const char* key)                            { return this->impl ? this->impl->subelementAt(key)        : 0; }
+ModelElement* ModelElement::subelementAt(const unsigned int& index)                  { return this->impl ? this->impl->subelementAt(index)      : 0; }
 
 ModelElement& ModelElement::operator = (const bool& v)           { if(impl) impl->accept(v);return *this; }
 ModelElement& ModelElement::operator = (const char* v)           { if(impl) impl->accept(v);return *this; }

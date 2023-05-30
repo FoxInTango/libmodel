@@ -165,8 +165,8 @@ public:
     virtual unsigned int removeSubelement(const char* name);
     virtual unsigned int removeSubelement(const unsigned int& index);
     virtual unsigned int subelementCount();
-    virtual ModelElement* subelementAt(const char* key) const ;
-    virtual ModelElement* subelementAt(const unsigned int& index) const ;
+    virtual ModelElement* subelementAt(const char* key);
+    virtual ModelElement* subelementAt(const unsigned int& index);
 public:
     virtual ModelElement& operator = (const bool& v);
     virtual ModelElement& operator = (const char& v);
