@@ -99,8 +99,8 @@ unsigned int Model::removeSubelement(const ModelElement* e)                  { r
 unsigned int Model::removeSubelement(const char* name)                       { return ME::MET_MAP   == ME::type()                              ? ME::removeSubelement(name)   : 0; }
 unsigned int Model::removeSubelement(const unsigned int& index)              { return ME::MET_ARRAY == ME::type()                              ? ME::removeSubelement(index)  : 0; }
 unsigned int Model::subelementCount()                                        { return ME::MET_ARRAY == ME::type() || ME::MET_MAP == ME::type() ? ME::subelementCount()        : 0; }
-ModelElement* Model::subelementAt(const char* key) const                     { return ME::MET_MAP   == ME::type() || ME::MET_MAP == ME::type() ? ME::subelementAt(key)        : 0; }
-ModelElement* Model::subelementAt(const unsigned int& index) const           { return ME::MET_ARRAY == ME::type()                              ? ME::subelementAt(index)      : 0; }
+ModelElement* Model::subelementAt(const char* key)                           { return ME::MET_MAP   == ME::type() || ME::MET_MAP == ME::type() ? ME::subelementAt(key)        : 0; }
+ModelElement* Model::subelementAt(const unsigned int& index)                 { return ME::MET_ARRAY == ME::type()                              ? ME::subelementAt(index)      : 0; }
 /**
 void model_from_json(Model& m,json& j) {
     switch(j.type()) {
