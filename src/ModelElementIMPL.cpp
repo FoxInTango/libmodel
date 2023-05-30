@@ -22,14 +22,18 @@
  * IN THE SOFTWARE.
  */
 #include "ModelElement.h"
+#include <libecho/libecho.h>
+#include <libcpp/libcpp.h>
 using namespace foxintango;
 
+/*
 #include <stdio.h>
 #include <iostream>
 #include <string>
 #include <cstring>
 #include <map>
 #include <vector>
+*/
 /** MOVE TO libstring BEGIN */
 #define c0 '0'
 #define c1 '1'
@@ -114,7 +118,7 @@ class ModelElementIMPL {
 public:
     unsigned int  index;
     //ModelElement* super;
-    std::vector<ModelElement*> supers;
+    Array<ModelElement*> supers;
 public:
     ModelElement::MODEL_ELEMENT_TYPE   type;
     ModelElement::MODEL_ELEMENT_STATUS status;
@@ -1113,7 +1117,7 @@ public:
 
 class ModelElementARRAY :public ModelElementIMPL {
 public:
-    std::vector<ModelElement*> subelements;
+    Array<ModelElement*> subelements;
 public:
     ModelElementARRAY() {
         type   = ModelElement::MET_ARRAY;
@@ -1167,7 +1171,7 @@ public:
 public:                                                                            /**IMPL  **/
     virtual unsigned int  appendSubelement(const ModelElement* e)                  { subelements.push_back(const_cast<ModelElement*>(e)); return subelements.size(); }
     //virtual unsigned int  insertSubelement(const ModelElement* e,const char* name) { return 0; }
-    virtual unsigned int  removeSubelement(const ModelElement* e)                  { std::vector<ModelElement*>::iterator i = subelements.begin();
+    virtual unsigned int  removeSubelement(const ModelElement* e)                  { Array<ModelElement*>::iterator i = subelements.begin();
                                                                                      while(i != subelements.end()) {
                                                                                          if(*i == e) subelements.erase(i);
                                                                                          i ++;
