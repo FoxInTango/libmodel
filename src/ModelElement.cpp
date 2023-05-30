@@ -24,6 +24,6 @@
 #include "ModelElement.h"
 using namespace foxintango;
 
-ModelElement::ModelElement()                                           { this->impl = 0;             }
-const ModelElement* ModelElement::operator [](const int&  index) const { return subelementAt(index); }
-const ModelElement* ModelElement::operator [](const char* name)  const { return subelementAt(name);  }
+ModelElement::ModelElement()                                      { this->impl = 0;             }
+const ModelElement* ModelElement::operator [](const int&  index)  { return subelementAt(index); }
+const ModelElement* ModelElement::operator [](const char* name)   { return subelementAt(name);  }
