@@ -109,9 +109,9 @@ namespace foxintango {
  * element TO char* 
  * char*   TO element
  * */
-class ModelElementIMPL {
+class foxintangoAPI ModelElementIMPL {
 public:
-    unsigned int  index;
+    Index  index;
     //ModelElement* super;
     Array<ModelElement*> supers;
 public:
