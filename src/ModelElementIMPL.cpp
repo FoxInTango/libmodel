@@ -1076,7 +1076,7 @@ public:
     virtual bool as(unsigned long& t)  const {return false;}
     virtual bool as(float& t)          const {return false;}
     virtual bool as(double& t)         const {return false;}
-    virtual bool as(char** t)          const { *t = new char[value.length()];memset(*t,0,value.length());strcpy(*t,value.byte());return true;}
+    virtual bool as(char** t)          const {return value.as(t);}
     virtual bool as(void** t)          const {return false;}
 public:
     virtual bool accept(const bool& t)          {return false;}
