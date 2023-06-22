@@ -1292,7 +1292,7 @@ public:
 public:                                                                            /**IMPL  **/
     virtual unsigned int  appendSubelement(const ModelElement* e)                  { return 0; }
     virtual unsigned int  insertSubelement(const ModelElement* e,const char* name) { subelements.insert(name,const_cast<ModelElement*>(e));/*MAP_ECHO*/;return subelements.size(); }
-    virtual unsigned int  removeSubelement(const ModelElement* e)                  { return subelements.remove(e);}
+    //virtual unsigned int  removeSubelement(const ModelElement* e)                  { return subelements.remove(e);}
     virtual unsigned int  removeSubelement(const char* name)                       { return subelements.remove(name); }
     //virtual unsigned int  removeSubelement(const unsigned int& index)              { }
     virtual unsigned int  subelementCount()                                        { return subelements.size(); }
