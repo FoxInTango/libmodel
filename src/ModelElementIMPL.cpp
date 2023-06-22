@@ -1166,15 +1166,11 @@ public:
 public:                                                                            /**IMPL  **/
     virtual unsigned int  appendSubelement(const ModelElement* e)                  { subelements.append(const_cast<ModelElement*>(e)); return subelements.size(); }
     //virtual unsigned int  insertSubelement(const ModelElement* e,const char* name) { return 0; }
-    virtual unsigned int  removeSubelement(const ModelElement* e)                  { Array<ModelElement*>::Iterator i = subelements.begin();
-                                                                                     while(i != subelements.end()) {
-                                                                                         if(*i == e) subelements.remove(i);
-                                                                                         i ++;
-                                                                                     }
+    virtual unsigned int  removeSubelement(const ModelElement* e)                  { Index i = 0;while(i != subelements.size()) {if(subelements[i] == e) subelements.remove(i);i ++;}
                                                                                      return subelements.size(); 
                                                                                    }
     //virtual unsigned int  removeSubelement(const char* name)                       { return 0; }
-    virtual unsigned int  removeSubelement(const int& index)                       { subelements.remove(subelements.begin() + index); return subelements.size(); }
+    virtual unsigned int  removeSubelement(const int& index)                       { subelements.remove(index); return subelements.size(); }
     virtual unsigned int  subelementCount()                                        { return subelements.size(); }
     //virtual ModelElement* subelementAt(const char* key)           const            { return 0; }
     virtual ModelElement* subelementAt(const unsigned int& index)            { return index < subelements.size() ? subelements.at(index) : 0; }
@@ -1296,17 +1292,11 @@ public:
 public:                                                                            /**IMPL  **/
     virtual unsigned int  appendSubelement(const ModelElement* e)                  { return 0; }
     virtual unsigned int  insertSubelement(const ModelElement* e,const char* name) { subelements.insert(name,const_cast<ModelElement*>(e));/*MAP_ECHO*/;return subelements.size(); }
-    virtual unsigned int  removeSubelement(const ModelElement* e)                  { Map<String,ModelElement*>::Iterator i = subelements.begin();
-                                                                                     while(i != subelements.end()) {
-                                                                                         if(i.value == e) subelements.remove(i);
-                                                                                         else i ++;
-                                                                                         }
-                                                                                     return subelements.size();
-                                                                                    }
-    virtual unsigned int  removeSubelement(const char* name)                        { Map<String, ModelElement*>::Iterator iter = subelements.iteratorAt(name); subelements.remove(iter); return subelements.size(); }
+    virtual unsigned int  removeSubelement(const ModelElement* e)                  { return subelements.remove(e);}
+    virtual unsigned int  removeSubelement(const char* name)                       { return subelements.remove(name); }
     //virtual unsigned int  removeSubelement(const unsigned int& index)              { }
-    virtual unsigned int  subelementCount()                                         { return subelements.size(); }
-    virtual ModelElement* subelementAt(const char* key)                             { return subelements.count(key) ? subelements.at(key) : 0; }
+    virtual unsigned int  subelementCount()                                        { return subelements.size(); }
+    virtual ModelElement* subelementAt(const char* key)                            { return subelements.count(key) ? subelements.at(key) : 0; }
     //virtual ModelElement* subelementAt(const unsigned int& index)  const           { }
 public:
     virtual void echo(const unsigned int& offset) {}
