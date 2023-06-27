@@ -1635,8 +1635,7 @@ ModelElement::operator void*()                 { void*          r = 0;     if(th
 ModelElement::operator MODEL_ELEMENT_TYPE()    { if(this->impl) return this->impl->type; return ModelElement::MET_UNKNOWN;     }
 
 void ModelElement::echo(const unsigned int& offset) { if(this->impl) this->impl->echo(offset);else  {}}
-
-
+ 
 unsigned int  ModelElement::appendSubelement(const ModelElement* e)                  { return this->impl ? this->impl->appendSubelement(e)      : 0; }
 unsigned int  ModelElement::insertSubelement(const ModelElement* e,const char* name) { return this->impl ? this->impl->insertSubelement(e,name) : 0; }
 unsigned int  ModelElement::removeSubelement(const ModelElement* e)                  { return this->impl ? this->impl->removeSubelement(e)      : 0; }
