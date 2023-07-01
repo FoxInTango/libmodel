@@ -24,7 +24,6 @@
 #include "Model.h"
 using namespace foxintango;
 #include "ModelToken.h"
-
 /**
 Model::Model() {
     ME::setType(ModelElement::MET_UNKNOWN);
