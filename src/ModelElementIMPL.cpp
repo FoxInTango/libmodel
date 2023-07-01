@@ -22,7 +22,6 @@
  * IN THE SOFTWARE.
  */
 #include "ModelElement.h"
-#include <libecho/libecho.h>
 #include <libstring/libstring.h>
 #include <libcpp/libcpp.h>
 using namespace foxintango;

@@ -24,7 +24,6 @@
 #include "Model.h"
 using namespace foxintango;
 #include "ModelToken.h"
-#include <libast/libast.h>
 
 /**
 Model::Model() {
@@ -58,7 +57,6 @@ Model::Model(const ModelElement* e) {
 }
 
 Model::~Model() {
-
 }
 
 Model::MODEL_STATUS Model::setType(const ME::MODEL_ELEMENT_TYPE& t) {

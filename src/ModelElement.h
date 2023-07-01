@@ -24,6 +24,7 @@
 #ifndef _MODEL_ELEMENT_H_
 #define _MODEL_ELEMENT_H_
 
+#include <libmm/libmm.h>
 #include <libcpp/libcpp.h>
 
 /** ModelElement
@@ -44,6 +45,7 @@ class ModelElementIMPL;
 
 class foxintangoAPI ModelElement {
 protected:
+    mm::Allocator* alloctor;
     ModelElementIMPL* impl;
 public:
 typedef enum _MODEL_ELEMENT_TYPE
