@@ -1618,20 +1618,20 @@ bool ModelElement::accept(double& v)           { return this->impl ? impl->accep
 bool ModelElement::accept(char* v)             { return this->impl ? impl->accept(v) : false; }
 bool ModelElement::accept(void* v)             { return this->impl ? impl->accept(v) : false; }
 
-ModelElement::operator bool()                  { bool           r = false; if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator char()                  { char           r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator unsigned char()         { unsigned char  r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator short()                 { short          r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator unsigned short()        { unsigned short r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator int()                   { int            r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator unsigned int()          { unsigned int   r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator long()                  { long           r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator unsigned long()         { unsigned long  r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator float()                 { float          r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator double()                { double         r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
-ModelElement::operator char*()                 { char*          r = 0;     if(this->impl) { this->impl->as(&r);} return r;     }
-ModelElement::operator void*()                 { void*          r = 0;     if(this->impl) { this->impl->as(&r);} return r;     }
-ModelElement::operator MODEL_ELEMENT_TYPE()    { if(this->impl) return this->impl->type; return ModelElement::MET_UNKNOWN;     }
+ModelElement::operator bool()                   const { bool           r = false; if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator char()                   const { char           r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator unsigned char()          const { unsigned char  r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator short()                  const { short          r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator unsigned short()         const { unsigned short r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator int()                    const { int            r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator unsigned int()           const { unsigned int   r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator long()                   const { long           r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator unsigned long()          const { unsigned long  r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator float()                  const { float          r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator double()                 const { double         r = 0;     if(this->impl) { this->impl->as(r); } return r;     }
+ModelElement::operator char*()                  const { char*          r = 0;     if(this->impl) { this->impl->as(&r);} return r;     }
+ModelElement::operator void*()                  const { void*          r = 0;     if(this->impl) { this->impl->as(&r);} return r;     }
+ModelElement::operator MODEL_ELEMENT_TYPE()     const { if(this->impl) return this->impl->type; return ModelElement::MET_UNKNOWN;     }
 
 void ModelElement::echo(const unsigned int& offset) { if(this->impl) this->impl->echo(offset);else  {}}
  
@@ -1640,9 +1640,9 @@ unsigned int  ModelElement::insertSubelement(const ModelElement* e,const char* n
 unsigned int  ModelElement::removeSubelement(const ModelElement* e)                  { return this->impl ? this->impl->removeSubelement(e)      : 0; }
 unsigned int  ModelElement::removeSubelement(const char* name)                       { return this->impl ? this->impl->removeSubelement(name)   : 0; }
 unsigned int  ModelElement::removeSubelement(const unsigned int& index)              { return this->impl ? this->impl->removeSubelement(index)  : 0; }
-unsigned int  ModelElement::subelementCount()                                        { return this->impl ? this->impl->subelementCount()        : 0; }
-ModelElement* ModelElement::subelementAt(const char* key)                            { return this->impl ? this->impl->subelementAt(key)        : 0; }
-ModelElement* ModelElement::subelementAt(const unsigned int& index)                  { return this->impl ? this->impl->subelementAt(index)      : 0; }
+unsigned int  ModelElement::subelementCount()                                  const { return this->impl ? this->impl->subelementCount()        : 0; }
+const ModelElement* ModelElement::subelementAt(const char* key)                const { return this->impl ? this->impl->subelementAt(key)        : 0; }
+const ModelElement* ModelElement::subelementAt(const unsigned int& index)      const { return this->impl ? this->impl->subelementAt(index)      : 0; }
 
 ModelElement& ModelElement::operator = (const bool& v)           { if(impl) impl->accept(v);return *this; }
 ModelElement& ModelElement::operator = (const char* v)           { if(impl) impl->accept(v);return *this; }

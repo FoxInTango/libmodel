@@ -140,24 +140,24 @@ public:
     bool accept(void* v);
     /** conversion operator
      * */
-    operator bool();
-    operator char();
-    operator unsigned char();
-    operator short();
-    operator unsigned short();
-    operator int();
-    operator unsigned int();
-    operator long();
-    operator unsigned long();
-    operator float();
-    operator double();
-    operator char*();
-    operator void*();
-    operator MODEL_ELEMENT_TYPE();
+    operator bool() const;
+    operator char() const;
+    operator unsigned char() const;
+    operator short() const;
+    operator unsigned short() const;
+    operator int() const;
+    operator unsigned int() const;
+    operator long() const;
+    operator unsigned long() const;
+    operator float() const;
+    operator double() const;
+    operator char*() const;
+    operator void*() const;
+    operator MODEL_ELEMENT_TYPE() const;
 public:
-    ModelElement* super();
-    ModelElement* prev();
-    ModelElement* next();
+    const ModelElement* super() const;
+    const ModelElement* prev() const;
+    const ModelElement* next() const;
 public:
     virtual void echo(const unsigned int& offset);
 public:
@@ -166,9 +166,9 @@ public:
     virtual unsigned int removeSubelement(const ModelElement* e);
     virtual unsigned int removeSubelement(const char* name);
     virtual unsigned int removeSubelement(const unsigned int& index);
-    virtual unsigned int subelementCount();
-    virtual ModelElement* subelementAt(const char* key);
-    virtual ModelElement* subelementAt(const unsigned int& index);
+    virtual unsigned int subelementCount() const;
+    virtual const ModelElement* subelementAt(const char* key) const;
+    virtual const ModelElement* subelementAt(const unsigned int& index) const;
 public:
     virtual ModelElement& operator = (const bool& v);
     virtual ModelElement& operator = (const char& v);
@@ -201,8 +201,8 @@ public:
     virtual bool operator == (const char* v) const;
     virtual bool operator == (const void* v) const;
 
-    const ModelElement* operator [](const int&  index);
-    const ModelElement* operator [](const char* name);
+    const ModelElement* operator [](const int& index) const;
+    const ModelElement* operator [](const char* name) const;
 };
 
 typedef ModelElement ME;

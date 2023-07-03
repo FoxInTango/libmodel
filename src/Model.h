@@ -77,9 +77,9 @@ virtual unsigned int insertSubelement(const ModelElement* e,const char* name);
 virtual unsigned int removeSubelement(const ModelElement* e);
 virtual unsigned int removeSubelement(const char* name);
 virtual unsigned int removeSubelement(const unsigned int& index);
-virtual unsigned int subelementCount();
-virtual ModelElement* subelementAt(const char* key);
-virtual ModelElement* subelementAt(const unsigned int& index);
+virtual unsigned int subelementCount() const;
+virtual const ModelElement* subelementAt(const char* key) const;
+virtual const ModelElement* subelementAt(const unsigned int& index) const;
 };
 
 }
