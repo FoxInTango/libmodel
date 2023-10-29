@@ -45,7 +45,7 @@ class ModelElementIMPL;
 
 class foxintangoAPI ModelElement {
 protected:
-    mm::Allocator* alloctor;
+    //mm::Allocator* alloctor;
     ModelElementIMPL* impl;
 public:
 typedef enum _MODEL_ELEMENT_TYPE
