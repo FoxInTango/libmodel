@@ -32,7 +32,7 @@ Model::Model() {
 
 Model::Model(const MODEL_ELEMENT_TYPE& t) {
     //if( t == ME::setType(t) ) std::cout << "Model set type OK." << std::endl;
-    ME::setType(t);
+    //ME::setType(t);
 }
 
 Model::Model(const char* path) {
