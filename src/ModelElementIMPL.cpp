@@ -112,7 +112,7 @@ class foxintangoAPI ModelElementIMPL {
 public:
     Index  index;
     //ModelElement* super;
-    //Array<ModelElement*> supers;
+    //Array<ModelElement*> supers; // Array 导致内存访问出错 见 TODO.md
 public:
     ModelElement::MODEL_ELEMENT_TYPE   type;
     ModelElement::MODEL_ELEMENT_STATUS status;
