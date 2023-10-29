@@ -112,7 +112,7 @@ class foxintangoAPI ModelElementIMPL {
 public:
     Index  index;
     //ModelElement* super;
-    Array<ModelElement*> supers;
+    //Array<ModelElement*> supers;
 public:
     ModelElement::MODEL_ELEMENT_TYPE   type;
     ModelElement::MODEL_ELEMENT_STATUS status;
