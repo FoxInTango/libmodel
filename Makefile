@@ -178,7 +178,7 @@ prepare:$(PREPARE_TARGETS)
 ifdef SUPER_MAKE_CONFIG_DIR
 ifdef ROOT_MAKE_CONFIG_DIR
 ifeq (${SUPER_MAKE_CONFIG_DIR},${ROOT_MAKE_CONFIG_DIR})
-	-rm $(ROOT_MAKE_CONFIG_DIR)/$(TARGET_NAME).mk
+	-rm $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 #prepare 1
 	@echo "DEPEND_TARGETS  += $(TARGET_NAME).build"                                           >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "UPDATE_TARGETS  += $(TARGET_NAME).update"                                          >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
@@ -232,7 +232,7 @@ ifeq (${SUPER_MAKE_CONFIG_DIR},${ROOT_MAKE_CONFIG_DIR})
 endif
 ifneq (${SUPER_MAKE_CONFIG_DIR},${ROOT_MAKE_CONFIG_DIR})
 #prepare.2
-	-rm $(SUPER_MAKE_CONFIG_DIR)/$(TARGET_NAME).mk
+	-rm $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "DEPEND_TARGETS += $(TARGET_NAME).build"                                            >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "ECHO_TARGETS += $(TARGET_NAME).echo"                                               >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "$(TARGET_NAME).build:"                                                             >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
