@@ -1,0 +1,25 @@
+MK_FALSE = 0
+MK_TRUE  = 1
+TARGET_NAME     = libmodel
+TARGET_TYPE_BIN = $(MK_FALSE)
+TARGET_TYPE_LIB = $(MK_TRUE)
+TARGET_TYPE_DLL = $(MK_TRUE)
+
+CONFIG_FLAGS_AS = -O3
+CONFIG_FLAGS_CC = -O3 -c -fPIC -Wall -std=c11
+CONFIG_FLAGS_PP = -O3 -c -fPIC -Wall -std=c++11 -fvisibility=hidden
+CONFIG_FLAGS_AR = -O3
+CONFIG_FLAGS_LD = -O3
+
+# libs to be linked with.
+CONFIG_LINK_WITH_LIBS      += -lstdc++ 
+CONFIG_HEADER_SEARCH_DIRS  += -I /usr/include -I /usr/local/include
+CONFIG_LIBRARY_SEARCH_DIRS += -L /usr/lib -L /usr/local/lib
+CONFIG_SOURCE_ROOT_DIRS    += ./src
+
+
+# For example
+SOURCE_DIR_BESIDES  = \(
+SOURCE_DIR_BESIDES +=    -path ${SOURCE_ROOT_DIRS}/.git
+SOURCE_DIR_BESIDES += -o -path ${SOURCE_ROOT_DIRS}/.make
+SOURCE_DIR_BESIDES += \)

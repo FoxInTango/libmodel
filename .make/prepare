@@ -1,0 +1,19 @@
+PREPARE_TARGETS += prepare.dir
+include $(MAKE_CONFIG_DIR)/prepare.dir/*.dep
+prepare.dir:
+	-mkdir lib bin
+ifneq ($(wildcard $(MAKE_CONFIG_DIR)/ignore.git),)
+	-cp $(MAKE_CONFIG_DIR)/ignore.git .gitignore
+endif
+	@echo "#MIT Ignore Begin:"  >> .gitignore
+	@echo "/applications"       >> .gitignore
+	@echo "/templates"          >> .gitignore
+	@echo "/modules"            >> .gitignore
+	@echo "/libraries"          >> .gitignore
+	@echo "/lib"                >> .gitignore
+	@echo "/bin"                >> .gitignore
+	@echo "/inc"                >> .gitignore
+	@echo "/thirds"             >> .gitignore
+	@echo "/.make/*.mk"         >> .gitignore
+	@echo "/.gitignore"         >> .gitignore
+	@echo "#MIT Ignore End."    >> .gitignore

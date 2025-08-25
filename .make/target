@@ -1,0 +1,5 @@
+ifdef target
+include $(MAKE_CONFIG_DIR)/target.dir/$(target)
+else
+include $(MAKE_CONFIG_DIR)/target.dir/auto
+endif

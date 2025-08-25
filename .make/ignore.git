@@ -51,15 +51,4 @@
 *.inf
 *.log
 *.tlog
-*.lastbuildstate#MIT Ignore Begin:
-/applications
-/templates
-/modules
-/libraries
-/lib
-/bin
-/inc
-/thirds
-/.make/*.mk
-/.gitignore
-#MIT Ignore End.
+*.lastbuildstate

@@ -1,0 +1,10 @@
+#PREPARE_TARGETS += preapre.libcpp
+#PREPARE_URL_libcpp = wf@allinone.io:alpine/libcpp.git
+#PREPARE_DIR_libcpp = $(DEPENDS_LIBRARY_PATH)/$(basename $(notdir $(PREPARE_URL_libcpp)))
+#preapre.libcpp:
+#	-git clone $(PREPARE_URL_libcpp) $(PREPARE_DIR_libcpp)
+#	-echo "SUPER_MAKE_DIR=${MAKE_FILE_DIR}"                >> $(PREPARE_DIR_libcpp)/.make/super
+#	-echo "SUPER_MAKE_CONFIG_DIR=${MAKE_CONFIG_DIR}"       >> $(PREPARE_DIR_libcpp)/.make/super
+#	-cd $(PREPARE_DIR_libcpp) && $(MAKE) prepare
+#	-rm $(PREPARE_DIR_libcpp)/.make/super
+        

@@ -1,0 +1,11 @@
+CC=arm32-gcc
+PP=arm32-g++
+AS=arm32-as
+AR=arm32-ar
+LD=arm32-ld
+
+TARGET_FLAGS_AS = -g
+TARGET_FLAGS_CC = -g
+TARGET_FLAGS_PP = -g
+TARGET_FLAGS_AR = -g
+TARGET_FLAGS_LD = -g

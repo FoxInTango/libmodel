@@ -1,0 +1,14 @@
+INSTALL_TARGETS+=install.header
+INSTALL_TARGETS+=install.lib
+INSTALL_TARGETS+=install.bin
+install.header:
+	-rm -rf $(HEADER_INSTALL_PATH)/$(TARGET_NAME)
+	-mkdir  $(HEADER_INSTALL_PATH)/$(TARGET_NAME)
+	-cd src && cp *.h  $(HEADER_INSTALL_PATH)/$(TARGET_NAME)
+install.bin:
+	-rm -rf $(BINARY_INSTALL_PATH)/$(TARGET_NAME)${TARGET_BIN_EXT}
+	-cp     $(TARGET_BIN_DIR)/$(TARGET_NAME)${TARGET_BIN_EXT} $(BINARY_INSTALL_PATH)
+install.lib:
+	-rm -rf $(LIBRARY_INSTALL_PATH)/$(TARGET_NAME).*
+	-cp     $(TARGET_LIB_DIR)/$(TARGET_NAME).*                $(LIBRARY_INSTALL_PATH)
+	

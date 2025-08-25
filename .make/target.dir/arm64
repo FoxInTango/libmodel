@@ -1,0 +1,5 @@
+CC=arm64-gcc
+PP=arm64-g++
+AS=arm64-as
+AR=arm64-ar
+LD=arm64-ld
