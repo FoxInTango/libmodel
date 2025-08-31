@@ -1,0 +1,9 @@
+PREPARE_TARGETS += prepare.libmm
+PREPARE_URL_libmm = wf@allinone.io:alpine/libmm.git
+PREPARE_DIR_libmm = $(DEPENDS_LIBRARY_PATH)/$(basename $(notdir $(PREPARE_URL_libmm)))
+prepare.libmm:
+	-git clone $(PREPARE_URL_libmm) $(PREPARE_DIR_libmm)
+	-echo "SUPER_MAKE_DIR=${MAKE_FILE_DIR}"                >> $(PREPARE_DIR_libmm)/.make/super
+	-echo "SUPER_MAKE_CONFIG_DIR=${MAKE_CONFIG_DIR}"       >> $(PREPARE_DIR_libmm)/.make/super
+	-cd $(PREPARE_DIR_libmm) && make prepare
+	-rm $(PREPARE_DIR_libmm)/.make/super

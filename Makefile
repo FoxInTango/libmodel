@@ -161,7 +161,7 @@ ${TARGET_LIB_DIR}/${TARGET_NAME}${TARGET_LIB_EXT_DYNAMIC}:$(TARGET_OBJECTS_PP) $
 	$(CC) -fPIC -shared -o $@ $^ ${LDFLAGS} $(TARGET_LIBS)
 
 ${TARGET_BIN_DIR}/${TARGET_NAME}${TARGET_BIN_EXT}: $(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
-	$(LD) -o $@ $^  $(TARGET_LIBS) ${LDFLAGS} -fPIE #-static
+	$(CC) -o $@ $^ ${LDFLAGS} $(TARGET_LIBS) 
 
 $(TARGET_OBJECTS_AS):%.o:%.s
 	$(AS) ${ASFLAGS} $< -o $@
@@ -306,9 +306,21 @@ endif
 install :${INSTALL_TARGETS}
 	@echo ${TARGET_NAME} : Installed.
 uninstall : 
+ifneq ($(wildcard $(HEADER_INSTALL_PATH)),)
 	-rm -rf $(HEADER_INSTALL_PATH)/$(TARGET_NAME)
+else
+	@echo "install : no HEADER_INSTALL_PATH found"
+endif
+ifneq ($(wildcard $(BINARY_INSTALL_PATH)),)
 	-rm -rf $(BINARY_INSTALL_PATH)/$(TARGET_NAME)${TARGET_BIN_EXT}
+else
+	@echo "install : no BINARY_INSTALL_PATH found"
+endif
+ifneq ($(wildcard $(LIBRARY_INSTALL_PATH)),)
 	-rm -rf $(LIBRARY_INSTALL_PATH)/$(TARGET_NAME).*
+else
+	@echo "install : no LIBRARY_INSTALL_PATH found"
+endif
 publish:$(PUBLISH_TARGETS)
 	-git add . && git commit -m "$(shell date)" && git push
 update:$(UPDATE_TARGETS)
