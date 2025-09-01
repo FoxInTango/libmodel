@@ -152,8 +152,10 @@ ifeq ($(TARGET_TYPE_BIN),$(MK_TRUE))
 TARGETS += ${TARGET_BIN_DIR}/${TARGET_NAME}${TARGET_BIN_EXT}
 endif
 
-ALL : $(TARGETS) #$(DEPEND_TARGETS) $(TARGETS)
-	
+ALL : $(TARGETS)
+
+recursive:$(DEPEND_TARGETS) $(TARGETS)
+
 ${TARGET_LIB_DIR}/${TARGET_NAME}${TARGET_LIB_EXT_STATIC}:$(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
 	$(AR) -crvs $@ $^
 
@@ -182,7 +184,7 @@ ifdef ROOT_MAKE_CONFIG_DIR
 ifeq (${SUPER_MAKE_CONFIG_DIR},${ROOT_MAKE_CONFIG_DIR})
 	-rm $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 #prepare 1
-	@echo "DEPEND_TARGETS  += $(TARGET_NAME).build"                                           >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
+	@echo "DEPEND_TARGETS  += $(TARGET_NAME).recursive"                                       >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "UPDATE_TARGETS  += $(TARGET_NAME).update"                                          >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "PUBLISH_TARGETS += $(TARGET_NAME).publish"                                         >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "ECHO_TARGETS    += $(TARGET_NAME).echo"                                            >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
@@ -191,10 +193,10 @@ ifeq (${SUPER_MAKE_CONFIG_DIR},${ROOT_MAKE_CONFIG_DIR})
 	@echo "	@echo SUPER_MAKE_CONFIG_DIR=${ROOT_MAKE_CONFIG_DIR} >> $(MAKE_CONFIG_DIR)/super"  >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	cd $(MAKE_FILE_DIR) && $(MAKE) && $(MAKE) install"                                >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	-rm $(MAKE_CONFIG_DIR)/super"                                                     >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
-	@echo "$(TARGET_NAME).build:"                                                             >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
+	@echo "$(TARGET_NAME).recursive:"                                                             >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_DIR=${SUPER_MAKE_DIR}               >> ${MAKE_CONFIG_DIR}/super" >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_CONFIG_DIR=${SUPER_MAKE_CONFIG_DIR} >> $(MAKE_CONFIG_DIR)/super" >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
-	@echo "	cd $(MAKE_FILE_DIR) && $(MAKE) && $(MAKE) install"                                >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
+	@echo "	cd $(MAKE_FILE_DIR) && $(MAKE) recursive && $(MAKE) install"                                >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	-rm $(MAKE_CONFIG_DIR)/super"                                                     >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "$(TARGET_NAME).clean:"                                                             >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_DIR=${ROOT_MAKE_DIR}          >> ${MAKE_CONFIG_DIR}/super"       >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
@@ -235,12 +237,12 @@ endif
 ifneq (${SUPER_MAKE_CONFIG_DIR},${ROOT_MAKE_CONFIG_DIR})
 #prepare.2
 	-rm $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
-	@echo "DEPEND_TARGETS += $(TARGET_NAME).build"                                            >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
+	@echo "DEPEND_TARGETS += $(TARGET_NAME).recursive"                                        >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "ECHO_TARGETS += $(TARGET_NAME).echo"                                               >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
-	@echo "$(TARGET_NAME).build:"                                                             >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
+	@echo "$(TARGET_NAME).recursive:"                                                         >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_DIR=${SUPER_MAKE_DIR}               >> ${MAKE_CONFIG_DIR}/super" >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_CONFIG_DIR=${SUPER_MAKE_CONFIG_DIR} >> $(MAKE_CONFIG_DIR)/super" >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
-	@echo "	cd $(MAKE_FILE_DIR) && $(MAKE) && $(MAKE) install"                                >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
+	@echo "	cd $(MAKE_FILE_DIR) && $(MAKE) recursive && $(MAKE) install"                      >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	-rm $(MAKE_CONFIG_DIR)/super"                                                     >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "$(TARGET_NAME).echo:"                                                              >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_DIR=${SUPER_MAKE_DIR}               >> ${MAKE_CONFIG_DIR}/super" >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
@@ -249,17 +251,17 @@ ifneq (${SUPER_MAKE_CONFIG_DIR},${ROOT_MAKE_CONFIG_DIR})
 	@echo "	-rm $(MAKE_CONFIG_DIR)/super"                                                     >> $(SUPER_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 ifeq ($(wildcard $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk),)
 #prepare.3
-	@echo "DEPEND_TARGETS  += $(TARGET_NAME).build"                                           >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
+	@echo "DEPEND_TARGETS  += $(TARGET_NAME).recursive"                                       >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "ECHO_TARGETS    += $(TARGET_NAME).echo"                                            >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "$(TARGET_NAME):"                                                                   >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_DIR=${ROOT_MAKE_DIR}               >> ${MAKE_CONFIG_DIR}/super"  >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_CONFIG_DIR=${ROOT_MAKE_CONFIG_DIR} >> $(MAKE_CONFIG_DIR)/super"  >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	cd $(MAKE_FILE_DIR) && $(MAKE) && $(MAKE) install"                                >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	-rm $(MAKE_CONFIG_DIR)/super"                                                     >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
-	@echo "$(TARGET_NAME).build:"                                                             >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
+	@echo "$(TARGET_NAME).recursive:"                                                         >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_DIR=${SUPER_MAKE_DIR}               >> ${MAKE_CONFIG_DIR}/super" >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_CONFIG_DIR=${SUPER_MAKE_CONFIG_DIR} >> $(MAKE_CONFIG_DIR)/super" >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
-	@echo "	cd $(MAKE_FILE_DIR) && $(MAKE) && $(MAKE) install"                                >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
+	@echo "	cd $(MAKE_FILE_DIR) && $(MAKE) recursive && $(MAKE) install"                      >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	-rm $(MAKE_CONFIG_DIR)/super"                                                     >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "$(TARGET_NAME).clean:"                                                             >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
 	@echo "	@echo SUPER_MAKE_DIR=${ROOT_MAKE_DIR}          >> ${MAKE_CONFIG_DIR}/super"       >> $(ROOT_MAKE_CONFIG_DIR)/depend.dir/$(TARGET_NAME).mk
