@@ -8,6 +8,9 @@ include $(MAKE_CONFIG_DIR)/config
 ifneq ($(wildcard $(MAKE_CONFIG_DIR)/super),)
 include $(MAKE_CONFIG_DIR)/super
 endif
+ifneq ($(wildcard $(MAKE_CONFIG_DIR)/third),)
+include $(MAKE_CONFIG_DIR)/third
+endif
 include $(MAKE_CONFIG_DIR)/target
 
 # ** Project Settings **
@@ -152,12 +155,12 @@ ifeq ($(TARGET_TYPE_BIN),$(MK_TRUE))
 TARGETS += ${TARGET_BIN_DIR}/${TARGET_NAME}${TARGET_BIN_EXT}
 endif
 
-ALL : $(TARGETS)
+ALL : THIRD_TARGETS $(TARGETS)
 
-recursive:$(DEPEND_TARGETS) $(TARGETS)
+recursive:$(DEPEND_TARGETS) THIRD_TARGETS $(TARGETS)
 
 ${TARGET_LIB_DIR}/${TARGET_NAME}${TARGET_LIB_EXT_STATIC}:$(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
-	$(AR) -crvs $@ $^
+	$(AR) -crs $@ $^
 
 ${TARGET_LIB_DIR}/${TARGET_NAME}${TARGET_LIB_EXT_DYNAMIC}:$(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
 	$(CC) -fPIC -shared -o $@ $^ ${LDFLAGS} $(TARGET_LIBS)
