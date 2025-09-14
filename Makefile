@@ -2,8 +2,13 @@
 MAKE_FILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 MAKE_FILE_DIR  := $(dir $(MAKE_FILE_PATH))
 MAKE_CONFIG_DIR           = $(MAKE_FILE_DIR).make
+ifneq ($(wildcard $(MAKE_CONFIG_DIR)/localconfig),)
+include $(MAKE_CONFIG_DIR)/localconfig
+endif
+ifneq ($(wildcard $(MAKE_CONFIG_DIR)/depend.dir/*.mk),) 
 PROJECT_MODULE_MAKEFILES += $(wildcard $(MAKE_CONFIG_DIR)/depend.dir/*.mk)
 include $(PROJECT_MODULE_MAKEFILES)
+endif
 include $(MAKE_CONFIG_DIR)/config
 ifneq ($(wildcard $(MAKE_CONFIG_DIR)/super),)
 include $(MAKE_CONFIG_DIR)/super
@@ -336,6 +341,9 @@ update:$(UPDATE_TARGETS)
 	-git pull
 echo: #$(ECHO_TARGETS)
 	@echo TARGET_NAME:$(TARGET_NAME)
+ifdef REMOTE_ALL_IN_ONE
+	@echo REMOTE_ALL_IN_ONE Defined
+endif
 	@echo HEADER_SEARCH_DIRS:${HEADER_SEARCH_DIRS}
 	@echo CONFIG_HEADER_SEARCH_DIRS:${CONFIG_HEADER_SEARCH_DIRS}
 	@echo TARGET_HEADER_SEARCH_DIRS:${TARGET_HEADER_SEARCH_DIRS}
