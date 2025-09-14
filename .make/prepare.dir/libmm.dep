@@ -1,5 +1,8 @@
 PREPARE_TARGETS += prepare.libmm
+PREPARE_URL_libmm = https://github.com/FoxInTango/libmm.git
+ifdef REMOTE_ALL_IN_ONE
 PREPARE_URL_libmm = wf@allinone.io:alpine/libmm.git
+endif
 PREPARE_DIR_libmm = $(DEPENDS_LIBRARY_PATH)/$(basename $(notdir $(PREPARE_URL_libmm)))
 prepare.libmm:
 	-git clone $(PREPARE_URL_libmm) $(PREPARE_DIR_libmm)
